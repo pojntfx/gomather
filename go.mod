@@ -1,4 +1,4 @@
-module github.com/pojntfx/grpc-math
+module github.com/pojntfx/grpc-go-math
 
 go 1.13
 
