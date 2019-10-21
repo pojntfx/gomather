@@ -5,7 +5,7 @@ import (
 	"errors"
 	"log"
 
-	math "github.com/pojntfx/grpc-math/lib/proto"
+	math "github.com/pojntfx/grpc-go-math/lib/proto"
 )
 
 // Math is a gRPC example service
