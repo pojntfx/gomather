@@ -1,6 +1,6 @@
 # Felix Pojtinger's `grpc-go` Math Microservice
 
-A simple math GRPC microservice and client, for the purpose of learning and evaluating Go and `grpc-go`.
+A simple math GRPC microservice, for the purpose of learning and evaluating Go and `grpc-go`.
 
 ## Features
 
