@@ -3,13 +3,17 @@ language: go
 dist: bionic
 go:
   - "1.13"
+addons:
+  apt:
+    update: true
 
-script:
-  - apt update
-  - apt install protobuf-compiler
+before_install:
+  - apt install -y protobuf-compiler
   - go get github.com/golang/protobuf/protoc-gen-go
-  - go get github.com/pojntfx/grpc-go-math/...
-  - go generate github.com/pojntfx/grpc-go-math/...
+install:
+  - go generate ./...
+  - go get ./...
+script:
   - CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o cmd/grpc-go-math-linux-arm64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
   - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o cmd/grpc-go-math-linux-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
   - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o cmd/grpc-go-math-darwin-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
