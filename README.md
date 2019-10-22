@@ -13,11 +13,12 @@ A simple math GRPC microservice, for the purpose of learning and evaluating Go a
 
 ```bash
 # Download
-go get github.com/pojntfx/grpc-go-math
+go get github.com/golang/protobuf/protoc-gen-go
+go get github.com/pojntfx/grpc-go-math/...
 # Generate proto
-go generate github.com/pojntfx/grpc-go-math
+go generate github.com/pojntfx/grpc-go-math/...
 # Install
-go install github.com/pojntfx/grpc-go-math
+go install github.com/pojntfx/grpc-go-math/cmd/...
 # Run
 grpc-go-math-server
 ```
