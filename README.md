@@ -11,11 +11,13 @@ A simple math GRPC microservice, for the purpose of learning and evaluating Go a
 
 ## Usage
 
+Binaries are made available on the [releases page](https://github.com/pojntfx/grpc-go-math/releases/latest). Alternatively, run the commands below to install from source:
+
 ```bash
 # Download
-go get github.com/golang/protobuf/protoc-gen-go
+go get -u github.com/golang/protobuf/protoc-gen-go
 go get github.com/pojntfx/grpc-go-math/...
-# Generate proto
+# Generate from proto
 go generate github.com/pojntfx/grpc-go-math/...
 # Install
 go install github.com/pojntfx/grpc-go-math/cmd/...
