@@ -1,0 +1,24 @@
+sudo: required
+language: go
+dist: bionic
+go:
+  - "1.13"
+
+script:
+  - apt update
+  - apt install protobuf-compiler
+  - go get github.com/golang/protobuf/protoc-gen-go
+  - go get github.com/pojntfx/grpc-go-math/...
+  - go generate github.com/pojntfx/grpc-go-math/...
+  - CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o cmd/grpc-go-math-linux-arm64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
+  - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o cmd/grpc-go-math-linux-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
+  - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o cmd/grpc-go-math-darwin-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
+
+deploy:
+  provider: releases
+  api_key:
+    secure: OVmY78y6gikPVMBDMseE6ly9hbmRtMN+M+hrOiFkQi7aYCCQ/bJ/QR1nqQZJjx+E28gwTayyCj2teLd5qHDuZlAfe6m0keCyI8YFBnT2yhahLFhEV8OBKSNreriKViZ5aHC1Y0pAd2uvDmkIWtVMdTfP+RwtJmSGIiNuOFJXgms6yVHIe3WuD/BaB5sLav9WLQ7rtDCOL5Ojrvwd1uPJt91uycwZGlYJoeezZULOPwM5aF4en22yrbOh3CpYgqUdxJtIShvmdzQ0NV7ixjtuX/QuFiIwvAFAFSvEQMIHxY9w3gb/nFaNUVku25Utlit6ETMb6WKkShuxHRjdiXKEeua/y8Ki7unEOj2QkZ1t3hJA7E9lVeCfVmMGC0EjYabLu0SzzK5ZOhPRl3jFIBXzOz8OsRnUKjlNA/4ddL/bXkaXQCePtt4ekXJoGhFOk7Xq4ogX8sN3/JoQtCqnp0X+6RF+Kqk+hbG5qU2A0yc84hZIxgySGrGKI48IVToqoEgGHrmWVU4Mmjnsrxf+hIWdkZ7ZknScPJ+SwVSdWGRi8zNscPmyDbhGNEzXspuvtFVh030sOGErE1/lUMwhmQOTUATI+r/aK2qLUn+++AZkxQxdT9mbNI0gfUOgUEia2gByOF3azrVZJGyG1YLlVG3fxKDVXlFFCfvEqMtlWx6Gx3c=
+  file:
+    - ./cmd/grpc-go-math-linux-arm64
+    - ./cmd/grpc-go-math-linux-amd64
+    - ./cmd/grpc-go-math-darwin-amd64
