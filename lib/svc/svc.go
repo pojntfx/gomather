@@ -1,4 +1,4 @@
-//go:generate protoc -I ../ --go_out=plugins=grpc:../ ../proto/math.proto
+//go:generate bash -c "protoc --go_out=plugins=grpc,paths=source_relative:../ --gqlgencfg_out=paths=source_relative:../ --gql_out=svcdir=true,paths=source_relative:../ --gogqlgen_out=paths=source_relative,gogoimport=false:../ -I=../ -I=/usr/local/include -I=`go list -m -f \"{{.Dir}}\" github.com/danielvladco/go-proto-gql/pb` ../proto/math.proto"
 
 package svc
 
