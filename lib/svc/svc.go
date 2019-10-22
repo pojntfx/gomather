@@ -1,3 +1,5 @@
+//go:generate protoc -I ../ --go_out=plugins=grpc:../ ../proto/math.proto
+
 package svc
 
 import (
