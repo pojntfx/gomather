@@ -11,6 +11,11 @@ before_install:
   - sudo apt install -y protobuf-compiler
   - go get -u github.com/golang/protobuf/protoc-gen-go
 install:
+  - go get -u github.com/golang/protobuf/protoc-gen-go
+  - go get -u github.com/danielvladco/go-proto-gql/pb
+  - go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gqlgencfg
+  - go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gql
+  - go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gogqlgen
   - go generate ./...
   - go get ./...
 script:
