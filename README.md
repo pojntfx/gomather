@@ -9,6 +9,19 @@ A simple math GRPC microservice, for the purpose of learning and evaluating Go a
 - [Server as binary](./cmd/grpc-go-math-server/main.go)
 - [Service as library](./lib/svc/svc.go)
 
+## Usage
+
+```bash
+# Download
+go get github.com/pojntfx/grpc-go-math
+# Generate proto
+go generate github.com/pojntfx/grpc-go-math
+# Install
+go install github.com/pojntfx/grpc-go-math
+# Run
+grpc-go-math-server
+```
+
 ## License
 
 `grpc-go` Math Microservice (c) 2019 Felix Pojtinger
