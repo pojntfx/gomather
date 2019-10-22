@@ -16,6 +16,10 @@ Binaries are made available on the [releases page](https://github.com/pojntfx/gr
 ```bash
 # Download
 go get -u github.com/golang/protobuf/protoc-gen-go
+go get -u github.com/danielvladco/go-proto-gql/pb
+go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gqlgencfg
+go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gql
+go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gogqlgen
 go get github.com/pojntfx/grpc-go-math/...
 # Generate from proto
 go generate github.com/pojntfx/grpc-go-math/...
