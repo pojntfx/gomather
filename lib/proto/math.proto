@@ -1,17 +1,12 @@
 syntax = "proto3";
 
 package math;
-import "gql.proto";
 option go_package = "github.com/pojntfx/grpc-go-math/lib/proto";
 
 // Service math adds and subtracts numbers
 service Math {
-  rpc Add(MathAddArgs) returns (MathAddReply) {
-    option (gql.rpc_type) = QUERY;
-  };
-  rpc Subtract(MathSubtractArgs) returns (MathSubtractReply) {
-    option (gql.rpc_type) = QUERY;
-  };
+  rpc Add(MathAddArgs) returns (MathAddReply) {};
+  rpc Subtract(MathSubtractArgs) returns (MathSubtractReply) {};
 }
 
 // MathAddArgs are the arguments for an addition

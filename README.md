@@ -14,17 +14,16 @@ A simple math GRPC microservice, for the purpose of learning and evaluating Go a
 Binaries are made available on the [releases page](https://github.com/pojntfx/grpc-go-math/releases/latest). Alternatively, run the commands below to install from source:
 
 ```bash
-# Download
+# Install the proto compiler
 go get -u github.com/golang/protobuf/protoc-gen-go
-go get -u github.com/danielvladco/go-proto-gql/pb
-go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gqlgencfg
-go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gql
-go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gogqlgen
-go get github.com/pojntfx/grpc-go-math/...
-# Generate from proto
-go generate github.com/pojntfx/grpc-go-math/...
+# Compile the from proto
+go generate ./...
+# Download dependencies
+go get ./...
+# Build
+go build ./...
 # Install
-go install github.com/pojntfx/grpc-go-math/cmd/...
+go install ./...
 # Run
 grpc-go-math-server
 ```
