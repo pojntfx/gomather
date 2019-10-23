@@ -1,4 +1,4 @@
-//go:generate bash -c "protoc --go_out=plugins=grpc,paths=source_relative:../ --gqlgencfg_out=paths=source_relative:../ --gql_out=svcdir=true,paths=source_relative:../ --gogqlgen_out=paths=source_relative,gogoimport=false:../ -I=../ -I=/usr/local/include -I=`go list -m -f \"{{.Dir}}\" github.com/danielvladco/go-proto-gql/pb` ../proto/math.proto"
+//go:generate protoc --go_out=paths=source_relative,plugins=grpc:../ -I=../ ../proto/math.proto
 
 package svc
 
@@ -7,16 +7,16 @@ import (
 	"errors"
 	"log"
 
-	math "github.com/pojntfx/grpc-go-math/lib/proto"
+	"github.com/pojntfx/grpc-go-math/lib/proto"
 )
 
 // Math is a gRPC example service
 type Math struct {
-	math.UnimplementedMathServer
+	proto.UnimplementedMathServer
 }
 
 // Add adds two numbers
-func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddReply, error) {
+func (t *Math) Add(ctx context.Context, args *proto.MathAddArgs) (*proto.MathAddReply, error) {
 	// Validate input
 	if args.GetFirst() == 0 {
 		return nil, errors.New("could not add, `First` has not been provided")
@@ -29,11 +29,11 @@ func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddRe
 	log.Println("adding", args.GetFirst(), "to", args.GetSecond())
 
 	// Return added numbers
-	return &math.MathAddReply{Result: args.GetFirst() + args.GetSecond()}, nil
+	return &proto.MathAddReply{Result: args.GetFirst() + args.GetSecond()}, nil
 }
 
 // Subtract subtracts two numbers
-func (t *Math) Subtract(ctx context.Context, args *math.MathSubtractArgs) (*math.MathSubtractReply, error) {
+func (t *Math) Subtract(ctx context.Context, args *proto.MathSubtractArgs) (*proto.MathSubtractReply, error) {
 	// Validate input
 	if args.GetFirst() == 0 {
 		return nil, errors.New("could not subtract, `First` has not been provided")
@@ -46,5 +46,5 @@ func (t *Math) Subtract(ctx context.Context, args *math.MathSubtractArgs) (*math
 	log.Println("subtracting", args.GetSecond(), "from", args.GetFirst())
 
 	// Return subtracted numbers
-	return &math.MathSubtractReply{Result: args.GetSecond() - args.GetFirst()}, nil
+	return &proto.MathSubtractReply{Result: args.GetSecond() - args.GetFirst()}, nil
 }

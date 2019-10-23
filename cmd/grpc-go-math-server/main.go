@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	math "github.com/pojntfx/grpc-go-math/lib/proto"
+	"github.com/pojntfx/grpc-go-math/lib/proto"
 	"github.com/pojntfx/grpc-go-math/lib/svc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -29,7 +29,7 @@ func main() {
 
 	// Register the services
 	reflection.Register(server)
-	math.RegisterMathServer(server, &svc.Math{})
+	proto.RegisterMathServer(server, &svc.Math{})
 	log.Println("server started on port", *port)
 
 	// Serve the server via the listener

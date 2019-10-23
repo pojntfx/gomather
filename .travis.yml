@@ -8,14 +8,11 @@ addons:
     update: true
 
 before_install:
-  - sudo apt install -y protobuf-compiler
+  - sudo apt install -y wget unzip
+  - wget -L https://github.com/protocolbuffers/protobuf/releases/download/v3.10.0/protoc-3.10.0-linux-x86_64.zip -P /tmp
+  - sudo unzip /tmp/protoc-3.10.0-linux-x86_64.zip -d /usr/local
   - go get -u github.com/golang/protobuf/protoc-gen-go
 install:
-  - go get -u github.com/golang/protobuf/protoc-gen-go
-  - go get -u github.com/danielvladco/go-proto-gql/pb
-  - go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gqlgencfg
-  - go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gql
-  - go get -u github.com/danielvladco/go-proto-gql/protoc-gen-gogqlgen
   - go generate ./...
   - go get ./...
 script:
