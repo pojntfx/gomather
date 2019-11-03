@@ -7,6 +7,7 @@ A simple math GRPC microservice, for the purpose of learning and evaluating Go a
 - Add numbers
 - Subtract numbers
 - [Server as binary](./cmd/grpc-go-math-server/main.go)
+- [Client as binary](./cmd/grpc-go-math-client/main.go)
 - [Service as library](./lib/svc/svc.go)
 
 ## Usage
