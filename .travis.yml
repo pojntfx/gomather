@@ -2,7 +2,7 @@ sudo: required
 language: go
 dist: bionic
 go:
-  - "1.13"
+  - '1.13'
 addons:
   apt:
     update: true
@@ -12,6 +12,7 @@ before_install:
   - wget -L https://github.com/protocolbuffers/protobuf/releases/download/v3.10.0/protoc-3.10.0-linux-x86_64.zip -P /tmp
   - sudo unzip /tmp/protoc-3.10.0-linux-x86_64.zip -d /usr/local
   - go get -u github.com/golang/protobuf/protoc-gen-go
+  - go get -u github.com/fiorix/protoc-gen-cobra
 install:
   - go generate ./...
   - go get ./...
@@ -19,6 +20,9 @@ script:
   - CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o grpc-go-math-server-linux-arm64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
   - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o grpc-go-math-server-linux-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
   - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o grpc-go-math-server-darwin-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
+  - CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o grpc-go-math-client-linux-arm64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-client
+  - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o grpc-go-math-client-linux-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-client
+  - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o grpc-go-math-client-darwin-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-client
 
 deploy:
   skip_cleanup: true
@@ -27,6 +31,9 @@ deploy:
     - grpc-go-math-server-linux-arm64
     - grpc-go-math-server-linux-amd64
     - grpc-go-math-server-darwin-amd64
+    - grpc-go-math-client-linux-arm64
+    - grpc-go-math-client-linux-amd64
+    - grpc-go-math-client-darwin-amd64
   api_key:
     secure: WOMVvRgA0SHSr6qRnhm2o+qEnrFvK0G1eNLyn8TwEKPuGekd9w2f29cw7axvddquDsE0WdExShao/Efi31KUMVHJ2oOjqc9iN3IRLFuS40CTVnq93885H55q7GiQLwJlxn98DXVCgkWOiam339YuDmA4UI+WCTKVuvRnXHSLQ+1WC4p0p65lU23kIEH3s+d7wNPZa/SlnoM2N7wCWKTLwMEiRQIGyzy2EeS269icApkp7qU221cFf8RXcAVOP8mV1jg5hYeRid125sTHxoGkMOXjQ8bkSucNH2MMFVPRO8SLwn9cC9DvQXmIYlhvg+9VuZERVaoEJculEmQ2hHvajsYLLTb3TjVIQS5g/ClgEN76o8sUQaWHY1SbRu2tKclrUKO87ilXUxhltbvv0UF4eOARkfwMGpX7JEOi+rpA0s9+0GjmGGPEA31D8OO57iGp2bUTiKihVyERIcgrtPMpFp6p141qftw95lqCxzoUi9j8WCAgZ5jSf9ISKckvOgGs1wKCnuYwC6MzLgCgiaeQS/rvtOQqgvoQVWz9Awg+ZW7nIE71LK+M7X4hhJx37UyohleyExXHiuvMY0ahgYU2FKN550zxgbQFjohO+JV1QJ64DUD/rwo9097nkO4b1Gd3b6rwxRubYVFU/czGzR/FXccYAU9VaxMAuuAKed6Aoro=
   on:

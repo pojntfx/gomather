@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package math;
-option go_package = "github.com/pojntfx/grpc-go-math/lib/proto";
 
 // Service math adds and subtracts numbers
 service Math {
