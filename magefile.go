@@ -18,6 +18,7 @@ import (
 var gocmd = mg.GoCmd()
 var tempdir = os.TempDir()
 var protocOut = filepath.Join(tempdir, "usr", "local", "protoc")
+var binDir = ".bin"
 
 func ProtocInstallDependencies() error {
 	platform := os.Getenv("PLATFORM")
@@ -80,18 +81,23 @@ func BinaryBuild() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")
 
+	_, err := os.Stat(binDir)
+	if os.IsExist(err) {
+		os.Mkdir(binDir, 0755)
+	}
+
 	return sh.RunWith(map[string]string{
 		"CGO_ENABLED": "0",
 		"GOOS":        platform,
 		"GOARCH":      architecture,
-	}, gocmd, "build", "-o", "gomather-server-"+platform+"-"+architecture, "github.com/pojntfx/gomather/cmd/gomather-server")
+	}, gocmd, "build", "-o", filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "github.com/pojntfx/gomather/cmd/gomather-server")
 }
 
 func BinaryInstall() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")
 
-	return sh.RunV("sudo", "cp", "gomather-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin", "gomather-server"))
+	return sh.RunV("sudo", "cp", filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), filepath.Join("/usr", "local", "bin", "gomather-server"))
 }
 
 func Clean() {

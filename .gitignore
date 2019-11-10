@@ -1,2 +1,2 @@
 **/*.pb.*
-/gomather-server-*
+/.bin/
