@@ -10,10 +10,9 @@ addons:
 before_install:
         - go get -u github.com/magefile/mage
         - PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
-install:
-        - go get ./...
 script:
         - mage protocBuild
+        - go get ./...
         - PLATFORM=linux ARCHITECTURE=arm64 mage buildBinary
         - PLATFORM=linux ARCHITECTURE=amd64 mage buildBinary
         - PLATFORM=darwin ARCHITECTURE=amd64 mage buildBinary
