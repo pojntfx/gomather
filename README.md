@@ -1,6 +1,6 @@
-# Felix Pojtinger's `grpc-go` Math Microservice
+# Mather Service (in Go)
 
-A simple math GRPC microservice, for the purpose of learning and evaluating Go and `grpc-go`.
+Simple Go gRPC microservice that does math.
 
 [![Build Status](https://travis-ci.com/pojntfx/gomather.svg?branch=master)](https://travis-ci.com/pojntfx/gomather)
 
@@ -8,32 +8,98 @@ A simple math GRPC microservice, for the purpose of learning and evaluating Go a
 
 - Add numbers
 - Subtract numbers
-- [Server as binary](./cmd/grpc-go-math-server/main.go)
-- [Client as binary](./cmd/grpc-go-math-client/main.go)
-- [Service as library](./lib/svc/svc.go)
 
 ## Usage
 
-Binaries are made available on the [releases page](https://github.com/pojntfx/grpc-go-math/releases/latest). Alternatively, run the commands below to install from source:
+### From Prebuilt Binaries
+
+Prebuilt binaries are available on the [releases page](https://github.com/pojntfx/gomather/releases/latest).
+
+### From Go
+
+```
+# Install
+go get -u github.com/pojntfx/gomather/cmd/gomather-server
+
+# Run
+gomather-server start
+```
+
+### From Source (Interpreter)
 
 ```bash
-# Install the proto compilers
-go get -u github.com/golang/protobuf/protoc-gen-go
-go get -u github.com/fiorix/protoc-gen-cobra
-# Compile the from proto
-go generate ./...
-# Download dependencies
-go get ./...
+# Install dependencies
+go get -u github.com/magefile/mage
+PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+
+# Clean (optional)
+mage clean
+
 # Build
-go build ./...
-# Install
-go install ./...
+mage protocBuild
+go get ./...
+
 # Run
-grpc-go-math-server
+mage run
+```
+
+### From Source (Binary)
+
+```bash
+# Install dependencies
+go get -u github.com/magefile/mage
+
+# Install dependencies (for `protoc`)
+PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
+
+# Clean (optional)
+mage clean
+
+# Build
+mage protocBuild
+go get ./...
+
+# Build binary
+PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
+# or
+PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
+
+# Install binary
+PLATFORM=linux ARCHITECTURE=amd64 mage binaryInstall
+# or
+PLATFORM=linux ARCHITECTURE=arm64 mage binaryInstall
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage binaryInstall
+
+# Run
+gomather-server start
+```
+
+### From Source (Development)
+
+```
+# Install dependencies
+go get -u github.com/magefile/mage
+
+# Install dependencies (for `protoc`)
+PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
+
+# Watch, run and reload
+PLATFORM=linux ARCHITECTURE=amd64 mage watch
+# or
+PLATFORM=linux ARCHITECTURE=arm64 mage watch
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage watch
 ```
 
 ## License
 
-`grpc-go` Math Microservice (c) 2019 Felix Pojtinger
+Mather Service (in Go) (c) 2019 Felix Pojtinger
 
 SPDX-License-Identifier: AGPL-3.0
