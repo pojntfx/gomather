@@ -7,7 +7,7 @@ import (
 	"errors"
 	"log"
 
-	"github.com/pojntfx/grpc-go-math/lib/math"
+	"github.com/pojntfx/gomather/lib/math"
 )
 
 // Math is a gRPC example service

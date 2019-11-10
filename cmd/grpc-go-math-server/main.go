@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	"github.com/pojntfx/grpc-go-math/lib/math"
-	"github.com/pojntfx/grpc-go-math/lib/svc"
+	"github.com/pojntfx/gomather/lib/math"
+	"github.com/pojntfx/gomather/lib/svc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
