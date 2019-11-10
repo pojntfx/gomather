@@ -91,12 +91,12 @@ func BinaryInstall() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")
 
-	return sh.RunV("sudo", "cp", "gomather-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin"))
+	return sh.RunV("sudo", "cp", "gomather-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin", "gomather-server"))
 }
 
 func Clean() {
 	binariesToRemove, _ := filepath.Glob("gomather-server-*-*")
-	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("lib", "math", ".generated", "*", "*"))
+	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("src", "lib", ".generated", "*", "*"))
 	for _, fileToRemove := range append(binariesToRemove, generatedFilesFromProtosToRemove...) {
 		os.Remove(fileToRemove)
 	}
@@ -106,7 +106,7 @@ func Run() error {
 	return sh.RunV(gocmd, "run", filepath.Join("cmd", "gomather-server", "gomather-server.go"))
 }
 
-func Watch() {
+func Watch() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")
 
@@ -131,11 +131,16 @@ func Watch() {
 
 		BinaryBuild()
 
-		cmd = exec.Command(filepath.Join(".", "gomather-server-"+platform+"-"+architecture))
+		cmd = exec.Command("./gomather-server-" + platform + "-" + architecture)
 
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 
-		cmd.Start()
+		err := cmd.Start()
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }

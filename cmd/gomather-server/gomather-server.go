@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/pojntfx/gomather/src/proto/.generated/math"
+	math "github.com/pojntfx/gomather/src/proto/.generated/proto"
 	"github.com/pojntfx/gomather/src/svc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
