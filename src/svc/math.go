@@ -1,4 +1,4 @@
-//go:generate sh -c "mkdir -p ../math/.generated && protoc --go_out=paths=source_relative,plugins=grpc:../math/.generated --cobra_out=paths=source_relative,plugins=client:../math/.generated -I=../ ../math/math.proto"
+//go:generate sh -c "mkdir -p ../proto/.generated && protoc --go_out=paths=source_relative,plugins=grpc:../proto/.generated --cobra_out=paths=source_relative,plugins=client:../proto/.generated -I=../ ../proto/math.proto"
 
 package svc
 
@@ -7,7 +7,8 @@ import (
 	"errors"
 	"log"
 
-	"github.com/pojntfx/gomather/lib/math/.generated/math"
+	"github.com/pojntfx/gomather/src/lib"
+	"github.com/pojntfx/gomather/src/proto/.generated/math"
 )
 
 // Math is a gRPC example service
@@ -29,7 +30,7 @@ func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddRe
 	log.Println("adding", args.GetFirst(), "to", args.GetSecond())
 
 	// Return added numbers
-	return &math.MathAddReply{Result: args.GetFirst() + args.GetSecond()}, nil
+	return &math.MathAddReply{Result: lib.Add(args.GetFirst(), args.GetSecond())}, nil
 }
 
 // Subtract subtracts two numbers
@@ -46,5 +47,5 @@ func (t *Math) Subtract(ctx context.Context, args *math.MathSubtractArgs) (*math
 	log.Println("subtracting", args.GetSecond(), "from", args.GetFirst())
 
 	// Return subtracted numbers
-	return &math.MathSubtractReply{Result: args.GetSecond() - args.GetFirst()}, nil
+	return &math.MathSubtractReply{Result: lib.Subtract(args.GetFirst(), args.GetSecond())}, nil
 }

@@ -84,18 +84,18 @@ func BinaryBuild() error {
 		"CGO_ENABLED": "0",
 		"GOOS":        platform,
 		"GOARCH":      architecture,
-	}, gocmd, "build", "-o", "grpc-go-math-server-"+platform+"-"+architecture, "github.com/pojntfx/gomather/cmd/grpc-go-math-server")
+	}, gocmd, "build", "-o", "gomather-server-"+platform+"-"+architecture, "github.com/pojntfx/gomather/cmd/gomather-server")
 }
 
 func BinaryInstall() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")
 
-	return sh.RunV("sudo", "cp", "grpc-go-math-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin"))
+	return sh.RunV("sudo", "cp", "gomather-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin"))
 }
 
 func Clean() {
-	binariesToRemove, _ := filepath.Glob("grpc-go-math-server-*-*")
+	binariesToRemove, _ := filepath.Glob("gomather-server-*-*")
 	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("lib", "math", ".generated", "*", "*"))
 	for _, fileToRemove := range append(binariesToRemove, generatedFilesFromProtosToRemove...) {
 		os.Remove(fileToRemove)
@@ -103,7 +103,7 @@ func Clean() {
 }
 
 func Run() error {
-	return sh.RunV(gocmd, "run", filepath.Join("cmd", "grpc-go-math-server", "main.go"))
+	return sh.RunV(gocmd, "run", filepath.Join("cmd", "gomather-server", "gomather-server.go"))
 }
 
 func Watch() {
@@ -115,7 +115,7 @@ func Watch() {
 	first <- struct{}{}
 
 	w := fswatch.NewFolderWatcher(".", true, func(path string) bool {
-		return strings.HasSuffix(path, ".pb.go") || strings.HasPrefix(path, "grpc-go-math-server-")
+		return strings.HasSuffix(path, ".pb.go") || strings.HasPrefix(path, "gomather-server-")
 	}, 1)
 
 	w.Start()
@@ -131,7 +131,7 @@ func Watch() {
 
 		BinaryBuild()
 
-		cmd = exec.Command(filepath.Join(".", "grpc-go-math-server-"+platform+"-"+architecture))
+		cmd = exec.Command(filepath.Join(".", "gomather-server-"+platform+"-"+architecture))
 
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
