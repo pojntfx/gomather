@@ -83,3 +83,10 @@ func BinaryBuild() error {
 		"GOARCH":      architecture,
 	}, gocmd, "build", "-o", "grpc-go-math-server-"+platform+"-"+architecture, "github.com/pojntfx/gomather/cmd/grpc-go-math-server")
 }
+
+func BinaryInstall() error {
+	platform := os.Getenv("PLATFORM")
+	architecture := os.Getenv("ARCHITECTURE")
+
+	return sh.RunV("sudo", "cp", "grpc-go-math-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin"))
+}
