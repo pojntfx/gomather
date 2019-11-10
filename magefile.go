@@ -18,12 +18,11 @@ var protocOut = filepath.Join(tempdir, "usr", "local", "protoc")
 
 func ProtocInstallDependencies() error {
 	platform := os.Getenv("PLATFORM")
-	architecture := os.Getenv("ARCHITECTURE")
-
 	propPlatform := "linux"
 	if platform == "darwin" {
 		propPlatform = "osx"
 	}
+	architecture := os.Getenv("ARCHITECTURE")
 	propArchitecture := "x86_64"
 	if architecture == "amd64" {
 		propArchitecture = "x86_64"
@@ -72,4 +71,15 @@ func ProtocBuild() error {
 	return sh.RunWith(map[string]string{
 		"PATH": os.Getenv("PATH") + ":" + filepath.Join(protocOut, "bin"),
 	}, gocmd, "generate", "./...")
+}
+
+func BinaryBuild() error {
+	platform := os.Getenv("PLATFORM")
+	architecture := os.Getenv("ARCHITECTURE")
+
+	return sh.RunWith(map[string]string{
+		"CGO_ENABLED": "0",
+		"GOOS":        platform,
+		"GOARCH":      architecture,
+	}, gocmd, "build", "-o", "grpc-go-math-server-"+platform+"-"+architecture, "github.com/pojntfx/gomather/cmd/grpc-go-math-server")
 }
