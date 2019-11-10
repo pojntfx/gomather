@@ -1,4 +1,4 @@
-//go:generate sh -c "mkdir -p ../proto/.generated && protoc --go_out=paths=source_relative,plugins=grpc:../proto/.generated -I=../ ../proto/mather.proto"
+//go:generate sh -c "mkdir -p ../proto/generated && protoc --go_out=paths=source_relative,plugins=grpc:../proto/generated -I=../ ../proto/mather.proto"
 
 package svc
 
@@ -8,7 +8,7 @@ import (
 	"log"
 
 	"github.com/pojntfx/gomather/src/lib"
-	math "github.com/pojntfx/gomather/src/proto/.generated/proto"
+	math "github.com/pojntfx/gomather/src/proto/generated/proto"
 )
 
 // Math is a gRPC example service
