@@ -67,3 +67,9 @@ func ProtocInstallDependencies() error {
 	sh.RunV(gocmd, "get", "-u", "github.com/golang/protobuf/protoc-gen-go")
 	return sh.RunV(gocmd, "get", "-u", "github.com/fiorix/protoc-gen-cobra")
 }
+
+func ProtocBuild() error {
+	return sh.RunWith(map[string]string{
+		"PATH": os.Getenv("PATH") + ":" + filepath.Join(protocOut, "bin"),
+	}, gocmd, "generate", "./...")
+}
