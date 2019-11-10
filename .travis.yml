@@ -14,9 +14,9 @@ install:
         - go get ./...
 script:
         - mage protocBuild
-        - CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o grpc-go-math-server-linux-arm64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
-        - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o grpc-go-math-server-linux-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
-        - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o grpc-go-math-server-darwin-amd64 github.com/pojntfx/grpc-go-math/cmd/grpc-go-math-server
+        - CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o grpc-go-math-server-linux-arm64 github.com/pojntfx/gomather/cmd/grpc-go-math-server
+        - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o grpc-go-math-server-linux-amd64 github.com/pojntfx/gomather/cmd/grpc-go-math-server
+        - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o grpc-go-math-server-darwin-amd64 github.com/pojntfx/gomather/cmd/grpc-go-math-server
 
 deploy:
         skip_cleanup: true
