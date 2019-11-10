@@ -94,8 +94,11 @@ func BinaryInstall() error {
 func Clean() {
 	binariesToRemove, _ := filepath.Glob("grpc-go-math-server-*-*")
 	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("lib", "math", "*.pb.*"))
-	allFilesToRemove := append(binariesToRemove, generatedFilesFromProtosToRemove...)
-	for _, fileToRemove := range allFilesToRemove {
+	for _, fileToRemove := range append(binariesToRemove, generatedFilesFromProtosToRemove...) {
 		os.Remove(fileToRemove)
 	}
+}
+
+func Run() error {
+	return sh.RunV(gocmd, "run", filepath.Join("cmd", "grpc-go-math-server", "main.go"))
 }
