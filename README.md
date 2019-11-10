@@ -2,6 +2,8 @@
 
 A simple math GRPC microservice, for the purpose of learning and evaluating Go and `grpc-go`.
 
+[![Build Status](https://travis-ci.com/pojntfx/gomather.svg?branch=master)](https://travis-ci.com/pojntfx/gomather)
+
 ## Features
 
 - Add numbers
