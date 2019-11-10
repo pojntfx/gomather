@@ -1,2 +1,2 @@
 **/*.pb.*
-/grpc-go-math-server-*
+/gomather-server-*

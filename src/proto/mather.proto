@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package math;
+package mather;
 
 // Service math adds and subtracts numbers
 service Math {
