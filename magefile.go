@@ -3,13 +3,16 @@
 package main
 
 import (
+	fswatch "github.com/andreaskoch/go-fswatch"
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/mholt/archiver"
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 var gocmd = mg.GoCmd()
@@ -101,4 +104,38 @@ func Clean() {
 
 func Run() error {
 	return sh.RunV(gocmd, "run", filepath.Join("cmd", "grpc-go-math-server", "main.go"))
+}
+
+func Watch() {
+	platform := os.Getenv("PLATFORM")
+	architecture := os.Getenv("ARCHITECTURE")
+
+	first := make(chan struct{}, 1)
+	var cmd *exec.Cmd
+	first <- struct{}{}
+
+	w := fswatch.NewFolderWatcher(".", true, func(path string) bool {
+		return strings.HasSuffix(path, ".pb.go") || strings.HasPrefix(path, "grpc-go-math-server-")
+	}, 1)
+
+	w.Start()
+	for w.IsRunning() {
+		select {
+		case <-first:
+		case <-w.ChangeDetails():
+		}
+
+		if cmd != nil {
+			cmd.Process.Kill()
+		}
+
+		BinaryBuild()
+
+		cmd = exec.Command(filepath.Join(".", "grpc-go-math-server-"+platform+"-"+architecture))
+
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+
+		cmd.Start()
+	}
 }
