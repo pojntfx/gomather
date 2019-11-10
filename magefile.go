@@ -90,3 +90,12 @@ func BinaryInstall() error {
 
 	return sh.RunV("sudo", "cp", "grpc-go-math-server-"+platform+"-"+architecture, filepath.Join("/usr", "local", "bin"))
 }
+
+func Clean() {
+	binariesToRemove, _ := filepath.Glob("grpc-go-math-server-*-*")
+	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("lib", "math", "*.pb.*"))
+	allFilesToRemove := append(binariesToRemove, generatedFilesFromProtosToRemove...)
+	for _, fileToRemove := range allFilesToRemove {
+		os.Remove(fileToRemove)
+	}
+}
