@@ -102,7 +102,7 @@ func BinaryInstall() error {
 
 func Clean() {
 	binariesToRemove, _ := filepath.Glob("gomather-server-*-*")
-	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("src", "lib", ".generated", "*", "*"))
+	generatedFilesFromProtosToRemove, _ := filepath.Glob(filepath.Join("src", "proto", ".generated", "proto", "*"))
 	for _, fileToRemove := range append(binariesToRemove, generatedFilesFromProtosToRemove...) {
 		os.Remove(fileToRemove)
 	}
