@@ -12,9 +12,9 @@ before_install:
         - PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
         - mage protocBuild
 script:
-        - PLATFORM=linux ARCHITECTURE=arm64 mage buildBinary
-        - PLATFORM=linux ARCHITECTURE=amd64 mage buildBinary
-        - PLATFORM=darwin ARCHITECTURE=amd64 mage buildBinary
+        - PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
+        - PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
+        - PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
 
 deploy:
         skip_cleanup: true
