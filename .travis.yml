@@ -24,7 +24,7 @@ deploy:
                 - gomather-server-linux-amd64
                 - gomather-server-darwin-amd64
         api_key:
-                secure: WOMVvRgA0SHSr6qRnhm2o+qEnrFvK0G1eNLyn8TwEKPuGekd9w2f29cw7axvddquDsE0WdExShao/Efi31KUMVHJ2oOjqc9iN3IRLFuS40CTVnq93885H55q7GiQLwJlxn98DXVCgkWOiam339YuDmA4UI+WCTKVuvRnXHSLQ+1WC4p0p65lU23kIEH3s+d7wNPZa/SlnoM2N7wCWKTLwMEiRQIGyzy2EeS269icApkp7qU221cFf8RXcAVOP8mV1jg5hYeRid125sTHxoGkMOXjQ8bkSucNH2MMFVPRO8SLwn9cC9DvQXmIYlhvg+9VuZERVaoEJculEmQ2hHvajsYLLTb3TjVIQS5g/ClgEN76o8sUQaWHY1SbRu2tKclrUKO87ilXUxhltbvv0UF4eOARkfwMGpX7JEOi+rpA0s9+0GjmGGPEA31D8OO57iGp2bUTiKihVyERIcgrtPMpFp6p141qftw95lqCxzoUi9j8WCAgZ5jSf9ISKckvOgGs1wKCnuYwC6MzLgCgiaeQS/rvtOQqgvoQVWz9Awg+ZW7nIE71LK+M7X4hhJx37UyohleyExXHiuvMY0ahgYU2FKN550zxgbQFjohO+JV1QJ64DUD/rwo9097nkO4b1Gd3b6rwxRubYVFU/czGzR/FXccYAU9VaxMAuuAKed6Aoro=
+                secure: RqtM19aG+o/sFRvLiLa1ARd1/0Bm0WhRzpOXy3PqnAUbg+KpFjPH9sIXqnxZ4r3195PRDqWzBIL9dJDGd9HOnVs3xJ2N0DKEzeDlcQ88i3KLYklAghliRTkN7TbW3h8RuhsA6oYeTaJIuVz2hTeTITn1FTEwlVzfrJeU6YDZvZ6WKiYImyqeW1AoW1YBNAayETlf+YpxEpUQ+2AX4nEurH6ye1wwil+t3YoI2jJvhzy4AvVn+4riv2V+nuQpQcGPpJuu7Nl3KOmTic8SrFx3OFpxkpJ5/BeybEwAdm8V1W6JkxfBTu5dRYx6ho7ilb65uqtMIJ/Nhdde4l48FPUzlDaGudQ+EjofPQxPreX5yxCtOul08Q5o90+sB0Ro691FNS7AEwyPs3p2mu0LE1cT8DFUzdl5H3ydyC1l53kVdDjuSErGHZJBlIG/Upeb8xlba61Q5q225hXn0xy0kDdxsxnJpDzI0R2nBTFyaaEnSsv+huUcb/cNc7GGcFO49O7IXIHmxbX+6P6VP9peVc0ChNSDD6itYtP4TD80mVCfCluuwNjyccRscJ8txRlu3V8BZezrv20Hna8vXtCFMu8J6GXkdYr2mEGB4RzMSKxPglPz0Q96YiGbLB6bENc6zv1vmfiiKHpUzBF5S/glvGZaLMYKYOwzFMa12DhS8LUarqQ=
         on:
                 repo: pojntfx/gomather
                 all_branches: true
