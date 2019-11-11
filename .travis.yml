@@ -17,7 +17,6 @@ script:
         - PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
 
 deploy:
-        skip_cleanup: true
         provider: releases
         file:
                 - gomather-server-linux-arm64
@@ -28,3 +27,4 @@ deploy:
         on:
                 repo: pojntfx/gomather
                 all_branches: true
+        skip_cleanup: true
