@@ -12,7 +12,7 @@ import (
 )
 
 // The port to run the gRPC server on
-var port = flag.String("port", ":30000", "The port to run the gRPC server on")
+var port = flag.String("port", ":30000", "Server's port (by default :30000)")
 
 func main() {
 	// Parse the flags
@@ -21,7 +21,7 @@ func main() {
 	// Start the listener
 	listener, err := net.Listen("tcp", *port)
 	if err != nil {
-		log.Fatalln("server could not listen", err)
+		log.Fatalln("Server could not listen", err)
 	}
 
 	// Start the server
@@ -30,11 +30,11 @@ func main() {
 	// Register the services
 	reflection.Register(server)
 	math.RegisterMathServer(server, &svc.Math{})
-	log.Println("server started on port", *port)
+	log.Println("Server started on port", *port)
 
 	// Serve the server via the listener
 	err = server.Serve(listener)
 	if err != nil {
-		log.Fatalln("server could not start", err)
+		log.Fatalln("Server could not start", err)
 	}
 }
