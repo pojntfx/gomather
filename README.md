@@ -25,7 +25,7 @@ go get -u github.com/pojntfx/gomather/cmd/gomather-server
 gomather-server start
 ```
 
-### From Source (Interpreter)
+### From Source (Toolchain)
 
 ```bash
 # Install dependencies
