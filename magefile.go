@@ -109,7 +109,7 @@ func Clean() {
 }
 
 func Run() error {
-	return sh.RunV(gocmd, "run", filepath.Join("cmd", "gomather-server", "gomather-server.go"))
+	return sh.RunV(gocmd, "run", filepath.Join("cmd", "gomather-server", "gomather-server.go"), "start")
 }
 
 func Watch() error {
@@ -137,7 +137,7 @@ func Watch() error {
 
 		BinaryBuild()
 
-		cmd = exec.Command("./gomather-server-" + platform + "-" + architecture)
+		cmd = exec.Command(filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "start")
 
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
