@@ -77,6 +77,10 @@ func ProtocBuild() error {
 	}, gocmd, "generate", "./...")
 }
 
+func Build() error {
+	return ProtocBuild()
+}
+
 func BinaryBuild() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")

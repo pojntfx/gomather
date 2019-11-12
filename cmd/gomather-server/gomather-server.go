@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net"
 
 	math "github.com/pojntfx/gomather/src/proto/generated/proto"
@@ -48,6 +47,6 @@ func main() {
 
 	err := rootCommand.Execute()
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalln(err)
 	}
 }

@@ -4,7 +4,7 @@ package svc
 
 import (
 	"context"
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/pojntfx/gomather/src/lib"
 	math "github.com/pojntfx/gomather/src/proto/generated/proto"
