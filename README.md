@@ -36,7 +36,7 @@ PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
 mage clean
 
 # Build
-mage protocBuild
+mage build
 go get ./...
 
 # Run
@@ -58,7 +58,7 @@ PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
 mage clean
 
 # Build
-mage protocBuild
+mage build
 go get ./...
 
 # Build binary

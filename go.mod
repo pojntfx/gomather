@@ -13,6 +13,7 @@ require (
 	github.com/mholt/archiver v3.1.1+incompatible
 	github.com/nwaples/rardecode v1.0.0 // indirect
 	github.com/pierrec/lz4 v2.3.0+incompatible // indirect
+	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
