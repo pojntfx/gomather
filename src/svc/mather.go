@@ -21,10 +21,14 @@ type Math struct {
 func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddReply, error) {
 	// Validate input
 	if args.GetFirst() == 0 {
-		return nil, status.Errorf(codes.InvalidArgument, "Could not add, `First` has not been provided")
+		msg := "Could not add, `First` has not been provided"
+		log.Errorln(msg)
+		return nil, status.Errorf(codes.InvalidArgument, msg)
 	}
 	if args.GetSecond() == 0 {
-		return nil, status.Errorf(codes.InvalidArgument, "Could not add, `Second` has not been provided")
+		msg := "Could not add, `Second` has not been provided"
+		log.Errorln(msg)
+		return nil, status.Errorf(codes.InvalidArgument, msg)
 	}
 
 	// Log progress
@@ -38,10 +42,14 @@ func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddRe
 func (t *Math) Subtract(ctx context.Context, args *math.MathSubtractArgs) (*math.MathSubtractReply, error) {
 	// Validate input
 	if args.GetFirst() == 0 {
-		return nil, status.Errorf(codes.InvalidArgument, "Could not add, `First` has not been provided")
+		msg := "Could not subtract, `First` has not been provided"
+		log.Errorln(msg)
+		return nil, status.Errorf(codes.InvalidArgument, msg)
 	}
 	if args.GetSecond() == 0 {
-		return nil, status.Errorf(codes.InvalidArgument, "Could not add, `Second` has not been provided")
+		msg := "Could not subtract, `Second` has not been provided"
+		log.Errorln(msg)
+		return nil, status.Errorf(codes.InvalidArgument, msg)
 	}
 
 	// Log progress
