@@ -1,7 +1,8 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
+	rz "gitlab.com/z0mbie42/rz-go/v2"
+	"gitlab.com/z0mbie42/rz-go/v2/log"
 	"net"
 
 	math "github.com/pojntfx/gomather/src/proto/generated/proto"
@@ -24,18 +25,18 @@ var startCommand = &cobra.Command{
 	Run: func(command *cobra.Command, args []string) {
 		listener, err := net.Listen("tcp", port)
 		if err != nil {
-			log.Fatalln("Server could not listen", err)
+			log.Fatal("Server could not listen", rz.Err(err))
 		}
 
 		server := grpc.NewServer()
 
 		reflection.Register(server)
 		math.RegisterMathServer(server, &svc.Math{})
-		log.Println("Server started on port", port)
+		log.Info("Server started on port", rz.String("port", port))
 
 		err = server.Serve(listener)
 		if err != nil {
-			log.Fatalln("Server could not start", err)
+			log.Fatal("Server could not start", rz.Err(err))
 		}
 	},
 }
@@ -47,6 +48,6 @@ func main() {
 
 	err := rootCommand.Execute()
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatal("Server command could not start", rz.Err(err))
 	}
 }

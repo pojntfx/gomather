@@ -17,6 +17,7 @@ require (
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
+	gitlab.com/z0mbie42/rz-go/v2 v2.8.0
 	golang.org/x/net v0.0.0-20191109021931-daa7c04131f5
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	google.golang.org/grpc v1.25.1
