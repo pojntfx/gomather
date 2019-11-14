@@ -101,7 +101,15 @@ func BinaryInstall() error {
 	platform := os.Getenv("PLATFORM")
 	architecture := os.Getenv("ARCHITECTURE")
 
-	return sh.RunV("sudo", "cp", filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), filepath.Join("/usr", "local", "bin", "gomather-server"))
+	from, _ := os.Open(filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture))
+	defer from.Close()
+
+	to, _ := os.OpenFile(filepath.Join("/usr", "local", "bin", "gomather-server"), os.O_RDWR|os.O_CREATE, 755)
+	defer to.Close()
+
+	_, err := io.Copy(to, from)
+
+	return err
 }
 
 func Clean() {
