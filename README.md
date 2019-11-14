@@ -30,7 +30,11 @@ gomather-server start
 ```bash
 # Install dependencies
 go get -u github.com/magefile/mage
+
+# Install dependencies (for `protoc`)
 PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
 
 # Clean (optional)
 mage clean

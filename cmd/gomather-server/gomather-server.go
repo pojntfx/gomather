@@ -15,8 +15,9 @@ import (
 var port string
 
 var rootCommand = &cobra.Command{
-	Use:   "gomather-server",
-	Short: "Simple Go gRPC microservice that does math.",
+	Version: "1.0.0",
+	Use:     "gomather-server",
+	Short:   "Simple Go gRPC microservice that does math.",
 }
 
 var startCommand = &cobra.Command{

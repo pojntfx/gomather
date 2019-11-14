@@ -1,26 +1,31 @@
-sudo: required
 language: go
-dist: bionic
 go:
         - "1.13"
+
+dist: bionic
+
 addons:
         apt:
                 update: true
 
 before_install:
         - go get -u github.com/magefile/mage
+
+script:
         - PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
         - mage build
-script:
-        - PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
         - PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
+        - PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
         - PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
+        - PLATFORM=linux ARCHITECTURE=amd64 mage binaryInstall
+        - gomather-server --version
+        - sudo rm `which gomather-server`
 
 deploy:
         provider: releases
         file:
-                - ./.bin/gomather-server-linux-arm64
                 - ./.bin/gomather-server-linux-amd64
+                - ./.bin/gomather-server-linux-arm64
                 - ./.bin/gomather-server-darwin-amd64
         api_key:
                 secure: AOAhzroK1YBj+qt6EXBOt/Lgr/XhONmrNJ3FN83GNVPcNln8qKK27O8Rw9dkAdQMLyQl3gvkems8ZEpe97jjOUHZ6xtsVRtW9ayYLftdt4dO5hiyrrGGUU+V3vtG+dZhiJZbqczCwZ/o+d7P6GssIqKfKvzGr5EGnTLg4GL4KEYN8qqZuwzkCFTHYwOCM2zF4FhAUcrY2niAb41D3GofVm7OiiC6/lCVvcflfzmhnLPDQF7LFVVsAmTY9LY4vvNp88Pl0ocQ3tTPh+EE+sN+CjeGiEN93haO4r7ioNIA6bKOz3DUYPjfZO4Lk6sfN7OtpIrqrms0RLVKJF9LtwElPUNcuEEjVO9jzgNUWiWSwAcTZQE4AZhFZ8qwyaSxeNu/k+j3bYhGd2ld0e3f3GnFK3dCroLhemyBMjNy45i0f9wu7H996bms+mbfx/wxSnunoiIC/kqU7mbq5FoKcQDdErUzKY7qoCTx2gNgVp+W+uGN+yo3j8CUrLHm1W6YGKsVUwFyIyn07nmnrvE/KllzZwIuMgwRzK6256bNchOOm46gqjAilI3JP7rr0xG+leOyDaU0A5LiKtKnKIZb+yq4UJ0GDUwFHmJgAlb859x+/bezPyGmFuTR77no5FMW7pYen0D2q5h21IZtjOYvM8cxh6LbRM/oLBoGV2kJTENJpWA=
