@@ -17,7 +17,7 @@ Prebuilt binaries are available on the [releases page](https://github.com/pojntf
 
 ### From Go
 
-```
+```bash
 # Install
 go get -u github.com/pojntfx/gomather/cmd/gomather-server
 
@@ -85,7 +85,7 @@ gomather-server start
 
 ### From Source (Development)
 
-```
+```bash
 # Install dependencies
 go get -u github.com/magefile/mage
 
@@ -100,6 +100,50 @@ PLATFORM=linux ARCHITECTURE=amd64 mage watch
 PLATFORM=linux ARCHITECTURE=arm64 mage watch
 # or
 PLATFORM=darwin ARCHITECTURE=amd64 mage watch
+```
+
+### From Source (Unit Tests)
+
+```bash
+# Install dependencies
+go get -u github.com/magefile/mage
+
+# Install dependencies (for `protoc`)
+PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
+
+# Clean (optional)
+mage clean
+
+# Build
+mage build
+go get ./...
+
+# Run unit tests
+mage unitTests
+```
+
+### From Source (Integration Tests)
+
+```bash
+# Install dependencies
+go get -u github.com/magefile/mage
+
+# Install dependencies (for `protoc`)
+PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
+
+# Clean (optional)
+mage clean
+
+# Build
+mage build
+go get ./...
+
+# Run integration tests
+sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage integrationTests
 ```
 
 ## License

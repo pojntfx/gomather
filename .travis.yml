@@ -14,12 +14,11 @@ before_install:
 script:
         - PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
         - mage build
+        - mage unitTests
         - PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
         - PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
         - PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
-        - sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryInstall
-        - gomather-server --version
-        - sudo rm `which gomather-server`
+        - sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage integrationTests
 
 deploy:
         provider: releases
