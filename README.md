@@ -25,7 +25,9 @@ go get -u github.com/pojntfx/gomather/cmd/gomather-server
 gomather-server start
 ```
 
-### From Source (Toolchain)
+### From Source
+
+#### Prerequisites
 
 ```bash
 # Install dependencies
@@ -43,28 +45,18 @@ mage clean
 mage build
 go get ./...
 
+```
+
+#### Run With Toolchain
+
+```bash
 # Run
 mage run
 ```
 
-### From Source (Binary)
+#### Run As Standalone Binary
 
 ```bash
-# Install dependencies
-go get -u github.com/magefile/mage
-
-# Install dependencies (for `protoc`)
-PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
-
-# Clean (optional)
-mage clean
-
-# Build
-mage build
-go get ./...
-
 # Build binary
 PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
 # or
@@ -83,17 +75,9 @@ sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=amd64 mage binaryInstall
 gomather-server start
 ```
 
-### From Source (Development)
+#### Development
 
 ```bash
-# Install dependencies
-go get -u github.com/magefile/mage
-
-# Install dependencies (for `protoc`)
-PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
-
 # Watch, run and reload
 PLATFORM=linux ARCHITECTURE=amd64 mage watch
 # or
@@ -102,46 +86,16 @@ PLATFORM=linux ARCHITECTURE=arm64 mage watch
 PLATFORM=darwin ARCHITECTURE=amd64 mage watch
 ```
 
-### From Source (Unit Tests)
+#### Unit Tests
 
 ```bash
-# Install dependencies
-go get -u github.com/magefile/mage
-
-# Install dependencies (for `protoc`)
-PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
-
-# Clean (optional)
-mage clean
-
-# Build
-mage build
-go get ./...
-
 # Run unit tests
 mage unitTests
 ```
 
-### From Source (Integration Tests)
+#### Integration Tests
 
 ```bash
-# Install dependencies
-go get -u github.com/magefile/mage
-
-# Install dependencies (for `protoc`)
-PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage protocInstallDependencies
-
-# Clean (optional)
-mage clean
-
-# Build
-mage build
-go get ./...
-
 # Run integration tests
 sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage integrationTests
 ```
