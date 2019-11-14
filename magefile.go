@@ -126,10 +126,7 @@ func Run() error {
 	return sh.RunV(gocmd, "run", filepath.Join("cmd", "gomather-server", "gomather-server.go"), "start")
 }
 
-func Watch() error {
-	platform := os.Getenv("PLATFORM")
-	architecture := os.Getenv("ARCHITECTURE")
-
+func watch(command []string, deps interface{}) error {
 	first := make(chan struct{}, 1)
 	var cmd *exec.Cmd
 	first <- struct{}{}
@@ -149,9 +146,9 @@ func Watch() error {
 			cmd.Process.Kill()
 		}
 
-		mg.SerialDeps(BinaryBuild)
+		mg.SerialDeps(deps)
 
-		cmd = exec.Command(filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "start")
+		cmd = exec.Command(command[0], command[1:]...)
 
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -163,6 +160,14 @@ func Watch() error {
 	}
 
 	return nil
+}
+
+func Watch() error {
+	platform := os.Getenv("PLATFORM")
+	architecture := os.Getenv("ARCHITECTURE")
+
+	command := []string{filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "start"}
+	return watch(command, BinaryBuild)
 }
 
 func UnitTests() error {
