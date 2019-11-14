@@ -17,7 +17,7 @@ script:
         - PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
         - PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
         - PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
-        - PLATFORM=linux ARCHITECTURE=amd64 mage binaryInstall
+        - sudo PLATFORM=linux ARCHITECTURE=amd64 `which mage` binaryInstall
         - gomather-server --version
         - sudo rm `which gomather-server`
 
