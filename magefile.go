@@ -7,6 +7,7 @@ import (
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/mholt/archiver"
+	"gitlab.com/z0mbie42/rz-go/v2/log"
 	"io"
 	"net/http"
 	"os"
@@ -19,6 +20,7 @@ var gocmd = mg.GoCmd()
 var tempdir = os.TempDir()
 var protocOut = filepath.Join(tempdir, "usr", "local", "protoc")
 var binDir = ".bin"
+var installPath = filepath.Join("/usr", "local", "bin", "gomather-server")
 
 func ProtocInstallDependencies() error {
 	platform := os.Getenv("PLATFORM")
@@ -77,8 +79,8 @@ func ProtocBuild() error {
 	}, gocmd, "generate", "./...")
 }
 
-func Build() error {
-	return ProtocBuild()
+func Build() {
+	mg.SerialDeps(ProtocBuild)
 }
 
 func BinaryBuild() error {
@@ -104,7 +106,7 @@ func BinaryInstall() error {
 	from, _ := os.Open(filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture))
 	defer from.Close()
 
-	to, _ := os.OpenFile(filepath.Join("/usr", "local", "bin", "gomather-server"), os.O_RDWR|os.O_CREATE, 755)
+	to, _ := os.OpenFile(installPath, os.O_RDWR|os.O_CREATE, 755)
 	defer to.Close()
 
 	_, err := io.Copy(to, from)
@@ -147,7 +149,7 @@ func Watch() error {
 			cmd.Process.Kill()
 		}
 
-		BinaryBuild()
+		mg.SerialDeps(BinaryBuild)
 
 		cmd = exec.Command(filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "start")
 
@@ -160,5 +162,29 @@ func Watch() error {
 		}
 	}
 
+	return nil
+}
+
+func UnitTests() error {
+	err := sh.RunV(gocmd, "test", "--tags", "unit", "./...")
+	if err != nil {
+		return err
+	}
+	log.Info("Passed")
+	return nil
+}
+
+func IntegrationTests() error {
+	mg.SerialDeps(BinaryInstall)
+
+	err := sh.RunV("gomather-server", "--version")
+
+	if err != nil {
+		return err
+	}
+
+	os.Remove(installPath)
+
+	log.Info("Passed")
 	return nil
 }
