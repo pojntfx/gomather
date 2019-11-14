@@ -73,11 +73,11 @@ PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
 PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
 
 # Install binary
-sudo PLATFORM=linux ARCHITECTURE=amd64 `which mage` binaryInstall
+sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryInstall
 # or
-sudo PLATFORM=linux ARCHITECTURE=arm64 `which mage` binaryInstall
+sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=arm64 mage binaryInstall
 # or
-sudo PLATFORM=darwin ARCHITECTURE=amd64 `which mage` binaryInstall
+sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=amd64 mage binaryInstall
 
 # Run
 gomather-server start
