@@ -13,12 +13,14 @@ before_install:
 
 script:
         - PLATFORM=linux ARCHITECTURE=amd64 mage protocDependencyInstall
+        - mage clean
         - mage build
         - mage unitTests
+        - mage integrationTests
         - PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
         - PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
         - PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
-        - sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage integrationTests
+        - sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryIntegrationTests
 
 deploy:
         provider: releases

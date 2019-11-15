@@ -85,7 +85,14 @@ mage unitTests
 
 ```bash
 # Start integration tests
-sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage integrationTests
+mage integrationTests
+```
+
+#### Integration Tests (For Standalone Binary)
+
+```bash
+# Start integration tests (for standalone binary)
+sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryIntegrationTests
 ```
 
 #### Development

@@ -137,6 +137,27 @@ func UnitTests() error {
 }
 
 func IntegrationTests() error {
+	err := sh.RunV(gocmd, "install", "./...")
+	if err != nil {
+		return err
+	}
+
+	err = sh.RunV("gomather-server", "--version")
+	if err != nil {
+		return err
+	}
+
+	installPathNonBinary, err := exec.LookPath("gomather-server")
+	if err != nil {
+		return err
+	}
+	os.Remove(installPathNonBinary)
+
+	log.Info("Passed")
+	return nil
+}
+
+func BinaryIntegrationTests() error {
 	mg.SerialDeps(BinaryInstall)
 
 	err := sh.RunV("gomather-server", "--version")
