@@ -12,7 +12,7 @@ before_install:
         - go get -u github.com/magefile/mage
 
 script:
-        - PLATFORM=linux ARCHITECTURE=amd64 mage protocInstallDependencies
+        - PLATFORM=linux ARCHITECTURE=amd64 mage protocDependencyInstall
         - mage build
         - mage unitTests
         - PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
