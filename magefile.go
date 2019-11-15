@@ -23,7 +23,7 @@ var protocOut = filepath.Join(tempdir, "usr", "local", "protoc")
 var binDir = ".bin"
 var installPath = filepath.Join("/usr", "local", "bin", "gomather-server")
 
-func ProtocInstallDependencies() error {
+func ProtocDependencyInstall() error {
 	platform := os.Getenv("PLATFORM")
 	propPlatform := "linux"
 	if platform == "darwin" {

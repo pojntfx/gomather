@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/andreaskoch/go-fswatch v1.0.0
 	github.com/dsnet/compress v0.0.1 // indirect
+	github.com/fiorix/protoc-gen-cobra v0.0.0-20181029091941-dffa0bfa45cc // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/magefile/mage v1.9.0
