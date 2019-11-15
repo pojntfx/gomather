@@ -34,12 +34,12 @@ var subtractResults = []AddAndSubtractResults{
 func TestAdd(t *testing.T) {
 	for _, r := range addResults {
 		a := Add(r.x, r.y)
-		assert.Equal(t, r.e, a, "%v + %v should be %v, but was %v", r.x, r.y, r.e, a)
+		assert.Equal(t, r.e, a)
 	}
 }
 func TestSubtract(t *testing.T) {
 	for _, r := range subtractResults {
 		a := Subtract(r.x, r.y)
-		assert.Equal(t, r.e, a, "%v - %v should be %v, but was %v", r.y, r.x, r.e, a)
+		assert.Equal(t, r.e, a)
 	}
 }
