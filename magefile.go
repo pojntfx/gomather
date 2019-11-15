@@ -7,6 +7,7 @@ import (
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/mholt/archiver"
+	rz "gitlab.com/z0mbie42/rz-go/v2"
 	"gitlab.com/z0mbie42/rz-go/v2/log"
 	"io"
 	"net/http"
@@ -79,8 +80,8 @@ func ProtocBuild() error {
 	}, gocmd, "generate", "./...")
 }
 
-func Build() {
-	mg.SerialDeps(ProtocBuild)
+func Build() error {
+	return ProtocBuild()
 }
 
 func BinaryBuild() error {
@@ -122,52 +123,8 @@ func Clean() {
 	}
 }
 
-func Run() error {
+func Start() error {
 	return sh.RunV(gocmd, "run", filepath.Join("cmd", "gomather-server", "gomather-server.go"), "start")
-}
-
-func watch(command []string, deps interface{}) error {
-	first := make(chan struct{}, 1)
-	var cmd *exec.Cmd
-	first <- struct{}{}
-
-	w := fswatch.NewFolderWatcher(".", true, func(path string) bool {
-		return strings.HasSuffix(path, ".pb.go") || strings.HasPrefix(path, "gomather-server-")
-	}, 1)
-
-	w.Start()
-	for w.IsRunning() {
-		select {
-		case <-first:
-		case <-w.ChangeDetails():
-		}
-
-		if cmd != nil {
-			cmd.Process.Kill()
-		}
-
-		mg.SerialDeps(deps)
-
-		cmd = exec.Command(command[0], command[1:]...)
-
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-
-		err := cmd.Start()
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func Watch() error {
-	platform := os.Getenv("PLATFORM")
-	architecture := os.Getenv("ARCHITECTURE")
-
-	command := []string{filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "start"}
-	return watch(command, BinaryBuild)
 }
 
 func UnitTests() error {
@@ -183,7 +140,6 @@ func IntegrationTests() error {
 	mg.SerialDeps(BinaryInstall)
 
 	err := sh.RunV("gomather-server", "--version")
-
 	if err != nil {
 		return err
 	}
@@ -192,4 +148,58 @@ func IntegrationTests() error {
 
 	log.Info("Passed")
 	return nil
+}
+
+func watch(command []string, deps []interface{}) error {
+	w := fswatch.NewFolderWatcher(".", true, func(path string) bool {
+		return strings.HasSuffix(path, ".pb.go") || strings.HasPrefix(path, filepath.Join(".bin", "gomather-server-"))
+	}, 1)
+	w.Start()
+	first := make(chan struct{}, 1)
+	first <- struct{}{}
+
+	var cmd *exec.Cmd
+
+	for w.IsRunning() {
+		select {
+		case <-first:
+		case <-w.ChangeDetails():
+		}
+
+		if cmd != nil {
+			cmd.Process.Kill()
+		}
+
+		errorInDeps := false
+
+		for _, dep := range deps {
+			err := dep.(func() error)()
+			if err != nil {
+				log.Error("Error while running dependency", rz.Err(err))
+				errorInDeps = true
+				break
+			}
+			errorInDeps = false
+		}
+
+		if !errorInDeps {
+			cmd = exec.Command(command[0], command[1:]...)
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+
+			err := cmd.Start()
+			if err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+func Dev() error {
+	platform := os.Getenv("PLATFORM")
+	architecture := os.Getenv("ARCHITECTURE")
+
+	command := []string{filepath.Join(binDir, "gomather-server-"+platform+"-"+architecture), "start"}
+	return watch(command, []interface{}{Build, UnitTests, BinaryBuild})
 }
