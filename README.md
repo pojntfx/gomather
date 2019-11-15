@@ -21,7 +21,7 @@ Prebuilt binaries are available on the [releases page](https://github.com/pojntf
 # Install
 go get -u github.com/pojntfx/gomather/cmd/gomather-server
 
-# Run
+# Start
 gomather-server start
 ```
 
@@ -44,17 +44,16 @@ mage clean
 # Build
 mage build
 go get ./...
-
 ```
 
-#### Run With Toolchain
+#### Start With Toolchain
 
 ```bash
-# Run
-mage run
+# Start
+mage start
 ```
 
-#### Run As Standalone Binary
+#### Start As Standalone Binary
 
 ```bash
 # Build binary
@@ -71,33 +70,33 @@ sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=arm64 mage binaryInstall
 # or
 sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=amd64 mage binaryInstall
 
-# Run
+# Start
 gomather-server start
-```
-
-#### Development
-
-```bash
-# Watch, run and reload
-PLATFORM=linux ARCHITECTURE=amd64 mage watch
-# or
-PLATFORM=linux ARCHITECTURE=arm64 mage watch
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage watch
 ```
 
 #### Unit Tests
 
 ```bash
-# Run unit tests
+# Start unit tests
 mage unitTests
 ```
 
 #### Integration Tests
 
 ```bash
-# Run integration tests
+# Start integration tests
 sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage integrationTests
+```
+
+#### Development
+
+```bash
+# Start unit tests, start server and restart both if source changed
+PLATFORM=linux ARCHITECTURE=amd64 mage dev
+# or
+PLATFORM=linux ARCHITECTURE=arm64 mage dev
+# or
+PLATFORM=darwin ARCHITECTURE=amd64 mage dev
 ```
 
 ## License
