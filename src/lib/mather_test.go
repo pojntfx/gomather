@@ -33,13 +33,11 @@ var subtractResults = []AddAndSubtractResults{
 
 func TestAdd(t *testing.T) {
 	for _, r := range addResults {
-		a := Add(r.x, r.y)
-		assert.Equal(t, r.e, a)
+		assert.Equal(t, r.e, Add(r.x, r.y))
 	}
 }
 func TestSubtract(t *testing.T) {
 	for _, r := range subtractResults {
-		a := Subtract(r.x, r.y)
-		assert.Equal(t, r.e, a)
+		assert.Equal(t, r.e, Subtract(r.x, r.y))
 	}
 }
