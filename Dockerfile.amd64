@@ -1,0 +1,23 @@
+# Setup env
+FROM golang:1.13 AS build
+WORKDIR /app
+RUN go get -u github.com/magefile/mage
+ENV GO111MODULE=on
+COPY ./go.mod ./go.sum ./
+RUN go mod download
+COPY ./magefile.go ./
+RUN PLATFORM=linux ARCHITECTURE=amd64 mage protocDependencyInstall
+
+# Add app
+COPY ./src ./src
+COPY ./cmd ./cmd
+
+# Build app
+RUN mage build
+RUN PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
+
+# Start app
+FROM debian:10-slim
+COPY --from=build /app/.bin/gomather-server-linux-amd64 ./gomather-server-linux-amd64
+EXPOSE 30000
+CMD ["./gomather-server-linux-amd64", "start"]
