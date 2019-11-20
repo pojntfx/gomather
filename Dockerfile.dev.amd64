@@ -14,12 +14,6 @@ RUN mage protocDependencyInstall
 COPY ./src ./src
 COPY ./cmd ./cmd
 
-# Build app
-RUN mage build
-RUN mage binaryBuild
-
-# Start app
-FROM amd64/debian:buster-slim
-COPY --from=build /app/.bin/gomather-server-linux-amd64 ./gomather-server-linux-amd64
+# Start unit tests, start server and restart both if source changed
 EXPOSE 30000
-CMD ["./gomather-server-linux-amd64", "start"]
+CMD ["mage", "dev"]
