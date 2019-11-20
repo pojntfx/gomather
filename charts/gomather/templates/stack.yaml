@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gomather{{ if .Values.dev }}-dev{{ end }}
+spec:
+  selector:
+    matchLabels:
+      app: gomather{{ if .Values.dev }}-dev{{ end }}
+  template:
+    metadata:
+      labels:
+        app: gomather{{ if .Values.dev }}-dev{{ end }}
+    spec:
+      containers:
+        - name: gomather{{ if .Values.dev }}-dev{{ end }}
+          image: {{ .Values.image }}
+          {{ if not .Values.dev }}
+          resources:
+            limits:
+              memory: {{ .Values.memory }}
+              cpu: {{ .Values.cpu }}
+          {{ end }}
+          ports:
+            - containerPort: 30000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gomather{{ if .Values.dev }}-dev{{ end }}
+spec:
+  selector:
+    app: gomather{{ if .Values.dev }}-dev{{ end }}
+  ports:
+    - name: grpc
+      port: 80
+      targetPort: 30000
+{{ if not .Values.dev }}
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: gomather
+  annotations:   
+   ingress.kubernetes.io/protocol: h2c
+spec:
+  rules:
+    - host: {{ .Values.domain }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: gomather
+              servicePort: grpc
+{{ end }}
