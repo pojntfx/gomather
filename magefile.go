@@ -33,9 +33,11 @@ func ProtocDependencyInstall() error {
 	propArchitecture := "x86_64"
 	if architecture == "amd64" {
 		propArchitecture = "x86_64"
+	} else {
+		propArchitecture = "aarch_64"
 	}
 
-	protocZip := "https://github.com/protocolbuffers/protobuf/releases/download/v3.10.0/protoc-3.10.0-" + propPlatform + "-" + propArchitecture + ".zip"
+	protocZip := "https://github.com/protocolbuffers/protobuf/releases/download/v3.10.1/protoc-3.10.1-" + propPlatform + "-" + propArchitecture + ".zip"
 	protocZipOut := filepath.Join(tempdir, "protoc"+propPlatform+"-"+propArchitecture+".zip")
 
 	res, err := http.Get(protocZip)
