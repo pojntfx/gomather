@@ -36,6 +36,8 @@ go get -u github.com/magefile/mage
 # Install dependencies (for `protoc`)
 PLATFORM=linux ARCHITECTURE=amd64 mage protocDependencyInstall
 # or
+PLATFORM=linux ARCHITECTURE=arm64 mage protocDependencyInstall
+# or
 PLATFORM=darwin ARCHITECTURE=amd64 mage protocDependencyInstall
 
 # Clean (optional)
@@ -96,7 +98,7 @@ sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryIntegratio
 # or
 sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=arm64 mage binaryIntegrationTests
 # or
-sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=armd64 mage binaryIntegrationTests
+sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=amd64 mage binaryIntegrationTests
 ```
 
 #### Development
