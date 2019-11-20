@@ -1,0 +1,5 @@
+image: pojntfx/gomather:latest
+memory: "128Mi"
+cpu: "500m"
+domain: gomather.felicitas.pojtinger.space
+dev: false
