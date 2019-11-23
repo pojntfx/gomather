@@ -1,2 +1,13 @@
+apiVersion: v1
 name: gomather
 version: 0.0.1
+description: Simple Go gRPC microservice that does math.
+type: application
+home: https://pojntfx.github.io/gomather/
+sources:
+        - git@github.com:pojntfx/gomather.git
+maintainers:
+        - name: Felicitas Pojtinger
+          email: felicitas@pojtinger.com
+          url: https://felicitas.pojtinger.com
+appVersion: 0.0.1
