@@ -1,5 +1,6 @@
 image: pojntfx/gomather:latest
 memory: "128Mi"
 cpu: "500m"
+nodePort: 30050
 domain: gomather.felicitas.pojtinger.space
 dev: false
