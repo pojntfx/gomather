@@ -1,55 +1,77 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gomather{{ if .Values.dev }}-dev{{ end }}
+  name: gomather{{ if .Values.meta.dev }}-dev{{ end }}
 spec:
   selector:
     matchLabels:
-      app: gomather{{ if .Values.dev }}-dev{{ end }}
+      app: gomather{{ if .Values.meta.dev }}-dev{{ end }}
   template:
     metadata:
       labels:
-        app: gomather{{ if .Values.dev }}-dev{{ end }}
+        app: gomather{{ if .Values.meta.dev }}-dev{{ end }}
     spec:
       containers:
-        - name: gomather{{ if .Values.dev }}-dev{{ end }}
-          image: {{ .Values.image }}
-          {{ if not .Values.dev }}
+        - name: gomather{{ if .Values.meta.dev }}-dev{{ end }}
+          image: {{ .Values.meta.image }}
+          {{ if not .Values.meta.dev }}
           resources:
             limits:
-              memory: {{ .Values.memory }}
-              cpu: {{ .Values.cpu }}
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
           {{ end }}
           ports:
             - containerPort: 30000
+{{ if .Values.meta.dev }}
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: gomather{{ if .Values.dev }}-dev{{ end }}
+  name: gomather-dev
 spec:
   selector:
-    app: gomather{{ if .Values.dev }}-dev{{ end }}
+    app: gomather-dev
+  type: NodePort
   ports:
     - name: grpc
       port: 30000
       targetPort: 30000
+      nodePort: {{ .Values.ingress.nodePort }}
+{{ else }}
+
+---
+apiVersion: autoscaling/v2beta1 
+kind: HorizontalPodAutoscaler 
+metadata: 
+  name: gomather
+spec: 
+  selector:
+    app: gomather
+  maxReplicas: {{ .Values.resources.maxReplicas }}
+  minReplicas: 1 
+  scaleTargetRef: 
+    apiVersion: apps/v1 
+    kind: Deployment 
+    name: gomather
+  metrics: 
+  - type: Resource 
+    resource: 
+      name: cpu 
+      targetAverageUtilization: 60
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: gomather{{ if .Values.dev }}-dev{{ end }}-nodeport
+  name: gomather
 spec:
-  type: NodePort
   selector:
-    app: gomather{{ if .Values.dev }}-dev{{ end }}
+    app: gomather
   ports:
     - name: grpc
       port: 30000
-      nodePort: {{ .Values.nodePort }}
-{{ if not .Values.dev }}
+      targetPort: 30000
 
 ---
 apiVersion: networking.k8s.io/v1beta1
@@ -60,10 +82,10 @@ metadata:
    ingress.kubernetes.io/protocol: h2c
 spec:
   rules:
-    - host: {{ .Values.domain }}
+    - host: {{ .Values.ingress.domain }}
       http:
         paths:
-          - path: /
+          - path: {{ .Values.ingress.path }}
             backend:
               serviceName: gomather
               servicePort: grpc

@@ -24,9 +24,9 @@ profiles:
                                     chartPath: charts/gomather
                                     wait: true
                                     values:
-                                            image: pojntfx/gomather-dev
+                                            meta.image: pojntfx/gomather-dev
                                     setValues:
-                                            dev: true
+                                            meta.dev: true
         - name: gomather-dev-arm64
           build:
                   tagPolicy:
@@ -48,9 +48,9 @@ profiles:
                                     chartPath: charts/gomather
                                     wait: true
                                     values:
-                                            image: pojntfx/gomather-dev
+                                            meta.image: pojntfx/gomather-dev
                                     setValues:
-                                            dev: true
+                                            meta.dev: true
 
         - name: gomather-amd64
           build:
@@ -69,7 +69,7 @@ profiles:
                                     chartPath: charts/gomather
                                     wait: true
                                     values:
-                                            image: pojntfx/gomather
+                                            meta.image: pojntfx/gomather
         - name: gomather-arm64
           build:
                   tagPolicy:
@@ -87,4 +87,4 @@ profiles:
                                     chartPath: charts/gomather
                                     wait: true
                                     values:
-                                            image: pojntfx/gomather
+                                            meta.image: pojntfx/gomather

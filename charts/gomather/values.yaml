@@ -1,6 +1,13 @@
-image: pojntfx/gomather:latest
-memory: "128Mi"
-cpu: "500m"
-nodePort: 30050
-domain: gomather.felix.pojtinger.space
-dev: false
+meta:
+        image: pojntfx/gomather:latest
+        dev: false
+
+resources:
+        memory: "128Mi"
+        cpu: "512m"
+        maxReplicas: 10
+
+ingress:
+        nodePort: 30050
+        domain: gomather.felix.pojtinger.space
+        path: /
