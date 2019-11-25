@@ -17,11 +17,21 @@ import (
 	"strings"
 )
 
+var projectName = "gomather"
+var dockerNamespace = "pojntfx"
 var gocmd = mg.GoCmd()
 var tempdir = os.TempDir()
 var protocOut = filepath.Join(tempdir, "usr", "local", "protoc")
 var binDir = ".bin"
 var installPath = filepath.Join("/usr", "local", "bin", "gomather-server")
+var baseProfiles = []string{
+	projectName,
+	projectName + "-dev",
+}
+var architectures = []string{
+	"amd64",
+	"arm64",
+}
 
 func ProtocDependencyInstall() error {
 	platform := os.Getenv("PLATFORM")
@@ -171,6 +181,48 @@ func BinaryIntegrationTests() error {
 
 	log.Info("Passed")
 	return nil
+}
+
+func DockerMultiarchSetup() error {
+	return sh.RunV("docker", "run", "--rm", "--privileged", "multiarch/qemu-user-static", "--reset", "-p", "yes")
+}
+
+func SkaffoldBuild() error {
+	mg.SerialDeps(DockerMultiarchSetup)
+	var profiles []string
+
+	for _, architecture := range architectures {
+		profiles = append(profiles, baseProfiles[0]+"-"+architecture)
+	}
+
+	sh.RunV("skaffold", "config", "unset", "--global", "default-repo")
+
+	for _, profile := range profiles {
+		sh.RunV("skaffold", "build", "-p", profile)
+	}
+
+	return nil
+}
+
+func DockerManifestBuild() error {
+	var cmds []string
+
+	manifestName := dockerNamespace + "/" + baseProfiles[0] + ":latest"
+
+	cmds = append(cmds, "manifest", "create", "--amend", manifestName)
+
+	for _, architecture := range architectures {
+		cmds = append(cmds, dockerNamespace+"/"+baseProfiles[0]+":latest-"+architecture)
+	}
+
+	err := sh.RunWith(map[string]string{
+		"DOCKER_CLI_EXPERIMENTAL": "enabled",
+	}, "docker", cmds...)
+	if err != nil {
+		return err
+	}
+
+	return sh.RunV("docker", "manifest", "push", manifestName)
 }
 
 func watch(command []string, deps []interface{}) error {
