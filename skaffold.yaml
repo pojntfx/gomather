@@ -1,90 +1,45 @@
-apiVersion: skaffold/v1beta16
+apiVersion: skaffold/v1
 kind: Config
 metadata:
-        name: gomather
+  name: gomather
 profiles:
-        - name: gomather-dev-amd64
-          build:
-                  tagPolicy:
-                          envTemplate:
-                                  template: "{{.IMAGE_NAME}}:latest-amd64"
-                  artifacts:
-                          - image: pojntfx/gomather-dev
-                            context: .
-                            docker:
-                                    dockerfile: Dockerfile.dev.amd64
-                            sync:
-                                    infer:
-                                            - "**/*.go"
-                                            - "**/*.proto"
-          deploy:
-                  helm:
-                          releases:
-                                  - name: gomather-dev
-                                    chartPath: charts/gomather
-                                    wait: true
-                                    values:
-                                            meta.image: pojntfx/gomather-dev
-                                    setValues:
-                                            meta.dev: true
-        - name: gomather-dev-arm64
-          build:
-                  tagPolicy:
-                          envTemplate:
-                                  template: "{{.IMAGE_NAME}}:latest-arm64"
-                  artifacts:
-                          - image: pojntfx/gomather-dev
-                            context: .
-                            docker:
-                                    dockerfile: Dockerfile.dev.arm64
-                            sync:
-                                    infer:
-                                            - "**/*.go"
-                                            - "**/*.proto"
-          deploy:
-                  helm:
-                          releases:
-                                  - name: gomather-dev
-                                    chartPath: charts/gomather
-                                    wait: true
-                                    values:
-                                            meta.image: pojntfx/gomather-dev
-                                    setValues:
-                                            meta.dev: true
-
-        - name: gomather-amd64
-          build:
-                  tagPolicy:
-                          envTemplate:
-                                  template: "{{.IMAGE_NAME}}:latest-amd64"
-                  artifacts:
-                          - image: pojntfx/gomather
-                            context: .
-                            docker:
-                                    dockerfile: Dockerfile.amd64
-          deploy:
-                  helm:
-                          releases:
-                                  - name: gomather-amd64
-                                    chartPath: charts/gomather
-                                    wait: true
-                                    values:
-                                            meta.image: pojntfx/gomather
-        - name: gomather-arm64
-          build:
-                  tagPolicy:
-                          envTemplate:
-                                  template: "{{.IMAGE_NAME}}:latest-arm64"
-                  artifacts:
-                          - image: pojntfx/gomather
-                            context: .
-                            docker:
-                                    dockerfile: Dockerfile.arm64
-          deploy:
-                  helm:
-                          releases:
-                                  - name: gomather-arm64
-                                    chartPath: charts/gomather
-                                    wait: true
-                                    values:
-                                            meta.image: pojntfx/gomather
+  - name: gomather
+    build:
+      artifacts:
+        - image: pojntfx/gomather
+          context: .
+          docker:
+            dockerfile: Dockerfile
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: gomather
+            chartPath: ./charts/gomather
+            values:
+              meta.image: pojntfx/gomather
+  - name: gomather-dev
+    build:
+      artifacts:
+        - image: pojntfx/gomather-dev
+          context: .
+          docker:
+            dockerfile: Dockerfile.dev
+          sync:
+            infer:
+              - "**/*.go"
+              - "**/*.proto"
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: gomather-dev
+            chartPath: ./charts/gomather
+            values:
+              meta.image: pojntfx/gomather-dev
+            setValues:
+              meta.dev: true
+            setValueTemplates:
+              resources.platform: "{{ .TARGETPLATFORM }}"

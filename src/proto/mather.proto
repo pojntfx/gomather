@@ -4,24 +4,30 @@ package mather;
 
 // Service math adds and subtracts numbers
 service Math {
-  rpc Add(MathAddArgs) returns (MathAddReply) {};
-  rpc Subtract(MathSubtractArgs) returns (MathSubtractReply) {};
+    rpc Add (MathAddArgs) returns (MathAddReply) {
+    };
+    rpc Subtract (MathSubtractArgs) returns (MathSubtractReply) {
+    };
 }
 
 // MathAddArgs are the arguments for an addition
 message MathAddArgs {
-  int64 First = 1;
-  int64 Second = 2;
+    int64 First = 1;
+    int64 Second = 2;
 }
 
 // MathAddReply is the reply for an addition
-message MathAddReply { int64 Result = 3; }
+message MathAddReply {
+    int64 Result = 3;
+}
 
 // MathSubtractArgs are the arguments for a subtraction
 message MathSubtractArgs {
-  int64 First = 1;
-  int64 Second = 2;
+    int64 First = 1;
+    int64 Second = 2;
 }
 
 // MathSubtractReply is the reply for a subtraction
-message MathSubtractReply { int64 Result = 3; }
+message MathSubtractReply {
+    int64 Result = 3;
+}
