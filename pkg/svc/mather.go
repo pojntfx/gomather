@@ -4,11 +4,11 @@ package svc
 
 import (
 	"context"
-	rz "gitlab.com/z0mbie42/rz-go/v2"
+	"gitlab.com/z0mbie42/rz-go/v2"
 	"gitlab.com/z0mbie42/rz-go/v2/log"
 
-	"github.com/pojntfx/gomather/src/lib"
-	math "github.com/pojntfx/gomather/src/proto/generated/proto"
+	"github.com/pojntfx/gomather/pkg/lib"
+	math "github.com/pojntfx/gomather/pkg/proto/generated/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -19,7 +19,7 @@ type Math struct {
 }
 
 // Add adds two numbers
-func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddReply, error) {
+func (t *Math) Add(_ context.Context, args *math.MathAddArgs) (*math.MathAddReply, error) {
 	// Validate input
 	if args.GetFirst() == 0 {
 		msg := "Could not add, `First` has not been provided"
@@ -40,7 +40,7 @@ func (t *Math) Add(ctx context.Context, args *math.MathAddArgs) (*math.MathAddRe
 }
 
 // Subtract subtracts two numbers
-func (t *Math) Subtract(ctx context.Context, args *math.MathSubtractArgs) (*math.MathSubtractReply, error) {
+func (t *Math) Subtract(_ context.Context, args *math.MathSubtractArgs) (*math.MathSubtractReply, error) {
 	// Validate input
 	if args.GetFirst() == 0 {
 		msg := "Could not subtract, `First` has not been provided"
