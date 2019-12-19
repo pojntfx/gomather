@@ -1,119 +1,49 @@
-# Mather Service (in Go)
+# gomather
 
 Simple Go gRPC microservice that does math.
 
-[![Build Status](https://travis-ci.com/pojntfx/gomather.svg?branch=master)](https://travis-ci.com/pojntfx/gomather)
+[![pipeline status](https://gitlab.com/pojntfx/gomather/badges/master/pipeline.svg)](https://gitlab.com/pojntfx/gomather/commits/master)
 
-## Features
+## Installation
 
-- Add numbers
-- Subtract numbers
-
-## Usage
-
-### From Prebuilt Binaries
+### Prebuilt Binaries
 
 Prebuilt binaries are available on the [releases page](https://github.com/pojntfx/gomather/releases/latest).
 
-### From Go
+### Go Package
+
+A Go package [is available](https://godoc.org/github.com/pojntfx/gomather).
+
+### Docker Image
+
+A Docker image is available on [Docker Hub](https://hub.docker.com/r/pojntfx/gomather).
+
+### Helm Chart
+
+A Helm chart is available in [@pojntfx's Helm chart repository](https://pojntfx.github.io/charts/).
+
+## Usage
 
 ```bash
-# Install
-go get -u github.com/pojntfx/gomather/cmd/gomather-server
+% gomather
+Simple Go gRPC microservice that does math.
 
-# Start
-gomather-server start
-```
+Usage:
+  gomather [command]
 
-### From Source
+Available Commands:
+  help        Help about any command
+  start       Starts the server
 
-#### Prerequisites
+Flags:
+  -h, --help      help for gomather
+      --version   version for gomather
 
-```bash
-# Install dependencies
-go get -u github.com/magefile/mage
-
-# Install dependencies (for `protoc`)
-PLATFORM=linux ARCHITECTURE=amd64 mage protocDependencyInstall
-# or
-PLATFORM=linux ARCHITECTURE=arm64 mage protocDependencyInstall
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage protocDependencyInstall
-
-# Clean (optional)
-mage clean
-
-# Build
-mage build
-go get ./...
-```
-
-#### Start With Toolchain
-
-```bash
-# Start
-mage start
-```
-
-#### Start As Standalone Binary
-
-```bash
-# Build binary
-PLATFORM=linux ARCHITECTURE=amd64 mage binaryBuild
-# or
-PLATFORM=linux ARCHITECTURE=arm64 mage binaryBuild
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage binaryBuild
-
-# Install binary
-sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryInstall
-# or
-sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=arm64 mage binaryInstall
-# or
-sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=amd64 mage binaryInstall
-
-# Start
-gomather-server start
-```
-
-#### Unit Tests
-
-```bash
-# Start unit tests
-mage unitTests
-```
-
-#### Integration Tests
-
-```bash
-# Start integration tests
-mage integrationTests
-```
-
-#### Integration Tests (For Standalone Binary)
-
-```bash
-# Start integration tests (for standalone binary)
-sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=amd64 mage binaryIntegrationTests
-# or
-sudo -E env "PATH=$PATH" PLATFORM=linux ARCHITECTURE=arm64 mage binaryIntegrationTests
-# or
-sudo -E env "PATH=$PATH" PLATFORM=darwin ARCHITECTURE=amd64 mage binaryIntegrationTests
-```
-
-#### Development
-
-```bash
-# Start unit tests, start server and restart both if source changed
-PLATFORM=linux ARCHITECTURE=amd64 mage dev
-# or
-PLATFORM=linux ARCHITECTURE=arm64 mage dev
-# or
-PLATFORM=darwin ARCHITECTURE=amd64 mage dev
+Use "gomather [command] --help" for more information about a command.
 ```
 
 ## License
 
-Mather Service (in Go) (c) 2019 Felicitas Pojtinger
+gomather (c) 2019 Felicitas Pojtinger
 
 SPDX-License-Identifier: AGPL-3.0
