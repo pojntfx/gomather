@@ -16,8 +16,9 @@ COPY ./go.mod ./go.sum ./
 RUN go mod download
 
 COPY ./.dibs.yml ./.dibs.yml
+COPY ./main.go ./main.go
 COPY ./cmd ./cmd
-COPY ./src ./src
+COPY ./pkg ./pkg
 
 RUN dibs pipeline build assets
 

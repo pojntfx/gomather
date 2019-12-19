@@ -13,7 +13,7 @@ platforms:
       development: gomather-dev
     assets:
       build:
-        command: go generate ./... && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags netgo -ldflags '-extldflags "-static"' -o .bin/gomather-linux-amd64 ./cmd/gomather-server/gomather-server.go
+        command: go generate ./... && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags netgo -ldflags '-extldflags "-static"' -o .bin/gomather-linux-amd64 main.go
         tag: pojntfx/gomather:linux-amd64
         context: .
         file: Dockerfile
@@ -30,7 +30,7 @@ platforms:
           file: Dockerfile.unitTestLang
       integration:
         lang:
-          command: go run ./cmd/gomather-server/gomather-server.go --help
+          command: go run main.go --help
           tag: pojntfx/gomather-integrationtest-lang:linux-amd64
           context: .
           file: Dockerfile.integrationTestLang
@@ -55,7 +55,7 @@ platforms:
       development: gomather-dev
     assets:
       build:
-        command: go generate ./... && GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -tags netgo -ldflags '-extldflags "-static"' -o .bin/gomather-linux-arm64 ./cmd/gomather-server/gomather-server.go
+        command: go generate ./... && GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -tags netgo -ldflags '-extldflags "-static"' -o .bin/gomather-linux-arm64 main.go
         tag: pojntfx/gomather:linux-arm64
         context: .
         file: Dockerfile
@@ -72,7 +72,7 @@ platforms:
           file: Dockerfile.unitTestLang
       integration:
         lang:
-          command: go run ./cmd/gomather-server/gomather-server.go --help
+          command: go run main.go --help
           tag: pojntfx/gomather-integrationtest-lang:linux-arm64
           context: .
           file: Dockerfile.integrationTestLang
