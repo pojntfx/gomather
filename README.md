@@ -4,6 +4,8 @@ Simple Go gRPC microservice that does math.
 
 [![pipeline status](https://gitlab.com/pojntfx/gomather/badges/master/pipeline.svg)](https://gitlab.com/pojntfx/gomather/commits/master)
 
+[![introduction video](https://img.youtube.com/vi/fUfW-z6fWZs/maxresdefault.jpg)](https://youtu.be/fUfW-z6fWZs)
+
 ## Installation
 
 ### Prebuilt Binaries
