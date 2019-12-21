@@ -21,6 +21,7 @@ platforms:
       distPath: .bin/gomather-linux-amd64
       cleanGlobs:
         - .bin/gomather-linux-amd64
+        - pkg/proto/generated/proto/*pb*
     starters:
       lang:
         command: go run main.go start --port :30001
@@ -68,6 +69,7 @@ platforms:
       distPath: .bin/gomather-linux-arm64
       cleanGlobs:
         - .bin/gomather-linux-arm64
+        - pkg/proto/generated/proto/*pb*
     starters:
       lang:
         command: go run main.go start --port :30003
