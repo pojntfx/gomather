@@ -21,6 +21,11 @@ platforms:
       distPath: .bin/gomather-linux-amd64
       cleanGlobs:
         - .bin/gomather-linux-amd64
+    starters:
+      lang:
+        command: go run main.go start --port :30001
+      assets:
+        command: .bin/gomather-linux-amd64 start --port :30002
     tests:
       unit:
         lang:
@@ -63,6 +68,11 @@ platforms:
       distPath: .bin/gomather-linux-arm64
       cleanGlobs:
         - .bin/gomather-linux-arm64
+    starters:
+      lang:
+        command: go run main.go start --port :30003
+      assets:
+        command: .bin/gomather-linux-arm64 start --port :30004
     tests:
       unit:
         lang:
