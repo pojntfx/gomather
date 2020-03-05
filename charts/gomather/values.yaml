@@ -9,5 +9,5 @@ resources:
 
 ingress:
   nodePort: 30050
-  domain: gomather.felicitas.pojtinger.space
+  domain: gomather.felicitas.pojtinger.com
   path: /
