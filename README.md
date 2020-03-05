@@ -4,6 +4,10 @@ Simple Go gRPC microservice that does math.
 
 [![pipeline status](https://gitlab.com/pojntfx/gomather/badges/master/pipeline.svg)](https://gitlab.com/pojntfx/gomather/commits/master)
 
+## Overview
+
+gomather is an example gRPC microservice written in Go. It does math operations.
+
 ## Installation
 
 ### Prebuilt Binaries
@@ -12,7 +16,7 @@ Prebuilt binaries are available on the [releases page](https://github.com/pojntf
 
 ### Go Package
 
-A Go package [is available](https://godoc.org/github.com/pojntfx/gomather).
+A Go package [is available](https://pkg.go.dev/github.com/pojntfx/gomather).
 
 ### Docker Image
 
@@ -44,6 +48,6 @@ Use "gomather [command] --help" for more information about a command.
 
 ## License
 
-gomather (c) 2019 Felicitas Pojtinger
+gomather (c) 2020 Felicitas Pojtinger
 
 SPDX-License-Identifier: AGPL-3.0
