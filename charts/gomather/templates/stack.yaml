@@ -1,3 +1,14 @@
+{{ if .Values.meta.dev }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ipxebuilder{{ if .Values.meta.dev }}-dev{{ end }}
+data:
+  TARGET: {{ .Values.meta.target }}
+  TARGETPLATFORM: {{ .Values.meta.platform }}
+---
+  {{ end }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,6 +25,11 @@ spec:
       containers:
         - name: gomather{{ if .Values.meta.dev }}-dev{{ end }}
           image: {{ .Values.meta.image }}
+          {{ if .Values.meta.dev }}
+          envFrom:
+            - configMapRef:
+                name: ipxebuilder{{ if .Values.meta.dev }}-dev{{ end }}
+          {{ end }}
           {{ if not .Values.meta.dev }}
           resources:
             limits:
@@ -35,7 +51,7 @@ spec:
   type: NodePort
   ports:
     - name: grpc
-      port: 30000
+      port: 30001
       targetPort: 30000
       nodePort: {{ .Values.ingress.nodePort }}
   {{ else }}
