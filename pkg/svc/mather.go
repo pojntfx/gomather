@@ -4,8 +4,8 @@ package svc
 
 import (
 	"context"
-	"gitlab.com/z0mbie42/rz-go/v2"
-	"gitlab.com/z0mbie42/rz-go/v2/log"
+	"gitlab.com/bloom42/libs/rz-go"
+	"gitlab.com/bloom42/libs/rz-go/log"
 
 	"github.com/pojntfx/gomather/pkg/lib"
 	math "github.com/pojntfx/gomather/pkg/proto/generated/proto"
