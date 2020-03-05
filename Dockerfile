@@ -15,8 +15,6 @@ RUN install /tmp/dibs /usr/local/bin
 ENV GO111MODULE=on
 
 RUN go get github.com/golang/protobuf/protoc-gen-go
-RUN go get github.com/rakyll/statik
-RUN go get github.com/mholt/archiver/cmd/arc
 
 ADD . .
 
