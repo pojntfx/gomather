@@ -18,7 +18,7 @@ targets:
           unitTests: go test -v ./...
           integrationTests: .bin/binaries/gomather-linux-amd64 --help
           imageTests: docker run --platform linux/amd64 -e TARGET=linux -e TARGETPLATFORM=linux/amd64 pojntfx/gomather:linux-amd64 /usr/local/bin/gomather --help
-          chartTests: helm install --name gomather .bin/chart/gomather-*.tgz && helm delete --purge gomather
+          chartTests: helm install gomather .bin/chart/gomather-*.tgz && helm delete gomather
           start: |
             if [ "$DEBUG" = "true" ]; then
               pkill -9 dlv || true
@@ -58,7 +58,7 @@ targets:
           unitTests: go test -v ./...
           integrationTests: .bin/binaries/gomather-linux-arm64 --help
           imageTests: docker run --platform linux/arm64 -e TARGET=linux -e TARGETPLATFORM=linux/arm64 pojntfx/gomather:linux-arm64 /usr/local/bin/gomather --help
-          chartTests: helm install --name gomather .bin/chart/gomather-*.tgz && helm delete --purge gomather
+          chartTests: helm install gomather .bin/chart/gomather-*.tgz && helm delete gomather
           start: |
             if [ "$DEBUG" = "true" ]; then
               pkill -9 dlv || true
