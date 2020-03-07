@@ -17,10 +17,10 @@ targets:
           build: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags netgo -ldflags '-extldflags "-static"' -o .bin/binaries/gomather-linux-amd64 main.go
           unitTests: go test -v ./...
           integrationTests: .bin/binaries/gomather-linux-amd64 --help
-          imageTests: docker run --platform linux/amd64 -e TARGET=linux -e TARGETPLATFORM=linux/amd64 pojntfx/gomather:linux-amd64 /usr/local/bin/gomather --help
+          imageTests: docker run --platform linux/amd64 -e DIBS_TARGET=linux -e TARGETPLATFORM=linux/amd64 pojntfx/gomather:linux-amd64 /usr/local/bin/gomather --help
           chartTests: helm install gomather .bin/chart/gomather-*.tgz && helm delete gomather
           start: |
-            if [ "$DEBUG" = "true" ]; then
+            if [ "$DIBS_DEBUG" = "true" ]; then
               pkill -9 dlv || true
               pkill -9 gomather || true
               .bin/binaries/gomather-linux-amd64 start &
@@ -57,10 +57,10 @@ targets:
           build: GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -tags netgo -ldflags '-extldflags "-static"' -o .bin/binaries/gomather-linux-arm64 main.go
           unitTests: go test -v ./...
           integrationTests: .bin/binaries/gomather-linux-arm64 --help
-          imageTests: docker run --platform linux/arm64 -e TARGET=linux -e TARGETPLATFORM=linux/arm64 pojntfx/gomather:linux-arm64 /usr/local/bin/gomather --help
+          imageTests: docker run --platform linux/arm64 -e DIBS_TARGET=linux -e TARGETPLATFORM=linux/arm64 pojntfx/gomather:linux-arm64 /usr/local/bin/gomather --help
           chartTests: helm install gomather .bin/chart/gomather-*.tgz && helm delete gomather
           start: |
-            if [ "$DEBUG" = "true" ]; then
+            if [ "$DIBS_DEBUG" = "true" ]; then
               pkill -9 dlv || true
               pkill -9 gomather || true
               .bin/binaries/gomather-linux-arm64 start &
@@ -98,7 +98,7 @@ targets:
           unitTests: go test -v ./...
           integrationTests: .bin/binaries/gomather-darwin-amd64 --help
           start: |
-            if [ "$DEBUG" = "true" ]; then
+            if [ "$DIBS_DEBUG" = "true" ]; then
               pkill -9 dlv || true
               pkill -9 gomather || true
               .bin/binaries/gomather-darwin-arm64 start &

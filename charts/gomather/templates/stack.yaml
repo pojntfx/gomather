@@ -4,10 +4,10 @@ kind: ConfigMap
 metadata:
   name: ipxebuilder{{ if .Values.meta.dev }}-dev{{ end }}
 data:
-  TARGET: "{{ .Values.meta.target }}"
+  DIBS_TARGET: "{{ .Values.meta.target }}"
   TARGETPLATFORM: "{{ .Values.meta.platform }}"
   {{ if and .Values.meta.dev .Values.meta.debug }}
-  DEBUG: "true"
+  DIBS_DEBUG: "true"
   {{end}}
 ---
   {{ end }}
