@@ -38,6 +38,7 @@ stages:
   - gomather:integrationTest
   - gomather:buildAndPushImage
   - gomather:buildAndPushManifestAndBinaries
+  - gomather:chartIntegrationTest
   - gomather:buildAndPushChart
 
 # Unit tests
@@ -78,22 +79,6 @@ gomather:imageTestsARM64:
   script:
     - dibs -buildImage -target linux -platform linux/arm64
     - dibs -imageTests -target linux -platform linux/arm64
-
-# Chart tests
-gomather:chartTestsAMD64:
-  <<: *dibsJob
-  stage: gomather:integrationTest
-  script:
-    - dibs -buildImage -target linux -platform linux/amd64
-    - dibs -buildManifest -target linux
-    - dibs -chartTests -target linux -platform linux/amd64 -docker
-gomather:chartTestsARM64:
-  <<: *dibsJob
-  stage: gomather:integrationTest
-  script:
-    - dibs -buildImage -target linux -platform linux/arm64
-    - dibs -buildManifest -target linux
-    - dibs -chartTests -target linux -platform linux/arm64 -docker
 
 # Build and push image
 gomather:buildAndPushImageAMD64:
@@ -150,6 +135,18 @@ gomather:buildAndPushBinariesARM64:
     expire_in: 1 month
   only:
     - tags
+
+# Chart tests
+gomather:chartTestsAMD64:
+  <<: *dibsJob
+  stage: gomather:chartIntegrationTest
+  script:
+    - dibs -chartTests -target linux -platform linux/amd64 -docker
+gomather:chartTestsARM64:
+  <<: *dibsJob
+  stage: gomather:chartIntegrationTest
+  script:
+    - dibs -chartTests -target linux -platform linux/arm64 -docker
 
 # Build and push chart
 gomather:buildAndPushChart:
