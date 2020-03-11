@@ -207,7 +207,9 @@ func init() {
 	proto.RegisterType((*MathSubtractReply)(nil), "mather.MathSubtractReply")
 }
 
-func init() { proto.RegisterFile("proto/mather.proto", fileDescriptor_a456687a9b7846aa) }
+func init() {
+	proto.RegisterFile("proto/mather.proto", fileDescriptor_a456687a9b7846aa)
+}
 
 var fileDescriptor_a456687a9b7846aa = []byte{
 	// 195 bytes of a gzipped FileDescriptorProto
