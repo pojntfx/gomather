@@ -142,11 +142,15 @@ gomather:chartTestsAMD64:
   stage: gomather:chartIntegrationTest
   script:
     - dibs -chartTests -target linux -platform linux/amd64 -docker
+  only:
+    - tags
 gomather:chartTestsARM64:
   <<: *dibsJob
   stage: gomather:chartIntegrationTest
   script:
     - dibs -chartTests -target linux -platform linux/arm64 -docker
+  only:
+    - tags
 
 # Build and push chart
 gomather:buildAndPushChart:
