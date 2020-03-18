@@ -13,6 +13,6 @@ resources:
   maxReplicas: 10
 
 ingress:
-  nodePort: 30050
-  domain: gomather.felix.pojtinger.com
+  nodePort: 30000
+  domain: gomather.example.com
   path: /
