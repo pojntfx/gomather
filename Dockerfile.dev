@@ -1,12 +1,11 @@
 # syntax=docker/dockerfile:experimental
-FROM --platform=$TARGETPLATFORM golang
+FROM --platform=$TARGETPLATFORM golang:alpine
 ARG DIBS_TARGET
 ARG TARGETPLATFORM
 
 WORKDIR /app
 
-RUN apt update
-RUN apt install -y protobuf-compiler
+RUN apk add -u curl protoc
 
 RUN curl -Lo /tmp/dibs https://github.com/pojntfx/dibs/releases/latest/download/dibs-linux-amd64
 RUN install /tmp/dibs /usr/local/bin
